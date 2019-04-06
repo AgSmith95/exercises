@@ -3,7 +3,6 @@
 
 #include <iostream>
 
-// Class A has virtual method but doesn't have virtual destructor
 class A {
     int data;
 public:

@@ -11,7 +11,18 @@
  * AGrandchild will have 2 copies of A
  * which leads to ambiguity
 **/
-#include "B.hpp"    //
+#include "B.hpp"
+/**
+ * Example of use:
+ *           B
+ *        /    \
+ *      /       \
+ * BChild1     BChild2
+ *      \     /
+ *    BGrandchild
+ *
+ * BGrandchild will have only 1 copy of B
+ */
 
 int main() {
     {   // Example of misuse
@@ -26,5 +37,22 @@ int main() {
                     << "ag.AChild2::getData()=" << y << '\n';
     }
     std::cout << '\n';
+    {   // Example of use
+        BGrandchild bg1{5,10};
+        std::cout << "bg1.getData()=" << bg1.getData() << '\n';
+        /**
+         * Despite {5,10} in constructor this happens:
+         *
+         * B()
+         * BChild1(0)
+         * BChild2(0)
+         * BGrandchild(5,10)
+         *
+         * Interesting
+         */
+        std::cout << '\n';
+        BGrandchild bg2{15};
+        std::cout << "bg2.getData()=" << bg2.getData() << '\n';
+    }
     return 0;
 }
