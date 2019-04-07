@@ -3,8 +3,6 @@
 
 #include <iostream>
 
-#include <iostream>
-
 class B {
     int data;
 public:
@@ -23,7 +21,7 @@ public:
         std::cout << "BChild1()\n";
     }
     explicit BChild1(const int& x): B{x} {  //  Clang-Tidy: Single-argument constructors must be marked explicit to avoid unintentional implicit conversions
-        std::cout << "BChild1(" << getData() << ")\n";
+        std::cout << "BChild1(" << x << "); getData()=" << getData() << '\n';
     }
 };
 
@@ -33,7 +31,7 @@ public:
         std::cout << "BChild2()\n";
     }
     explicit BChild2(const int& x): B{x} {  //  Clang-Tidy: Single-argument constructors must be marked explicit to avoid unintentional implicit conversions
-        std::cout << "BChild2(" << getData() << ")\n";
+        std::cout << "BChild2(" << x << "); getData()=" << getData() << '\n';
     }
 };
 
@@ -42,7 +40,7 @@ public:
     BGrandchild() {
         std::cout << "BGrandchild()\n";
     }
-    explicit BGrandchild(const int& d): B{d} {
+    explicit BGrandchild(const int& d): B{d}, BChild1{d+1}, BChild2{d+2} {
         std::cout << "BGrandchild(" << d << ")\n";
     };
     BGrandchild(const int& x, const int& y): BChild1{x}, BChild2{y} {
