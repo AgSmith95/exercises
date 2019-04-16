@@ -2,7 +2,7 @@
 #define FUNCTIONS_OVERLOAD_AUTO_OVERLOAD_RESOLUTION_HPP
 
 /**
- *      Stroustrup The C++ Prog. Lang. 4ed:
+ *      Stroustrup The C++ Prog. Lang. 4ed part 12.3.1 Automatic Overload Resolution:
  * To approximate our notions of what is reasonable, a series of criteria are tried in order:
  *  [1] Exact match; that is, match using no or only trivial conversions (for example, array name
  *      to pointer, function name to pointer to function, and T to const T )
