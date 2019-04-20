@@ -2,6 +2,7 @@
 #include "A.hpp"    // default "bad" example of using virtual methods without defining destructor as virtual
 #include "B.hpp"    // fix of  "bad" example
 #include "C.hpp"    // virtual methods and default arguments
+#include "D.hpp"    // is pure virtual function in constructor even legit?
 
 //class Erroneous { // example showing that in order to "=0" a destructor it needs to be virtual, at least
 //public:
@@ -34,6 +35,12 @@ int main() {
                     //  happens because 'c' is a pointer to a class 'C' and not to 'CChild'
         ((CChild*)c)->virt();
         dynamic_cast<CChild*>(c)->virt();
+    }
+    std::cout << '\n';
+    {
+        D *dc = new DChild();
+        dc->print();
+        delete dc;
     }
     std::cout << '\n';
     return 0;
