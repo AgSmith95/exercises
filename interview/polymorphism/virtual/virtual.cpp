@@ -3,6 +3,7 @@
 #include "B.hpp"    // fix of  "bad" example
 #include "C.hpp"    // virtual methods and default arguments
 #include "D.hpp"    // is pure virtual function in constructor even legit?
+#include "F.hpp"    // yes, if you call another function, which calls pure virtual one
 
 //class Erroneous { // example showing that in order to "=0" a destructor it needs to be virtual, at least
 //public:
@@ -43,5 +44,11 @@ int main() {
         delete dc;
     }
     std::cout << '\n';
+    {
+        // F *f = new FChild();    // no compiler errors, dammit
+        // but it causes this:
+        //      pure virtual method called
+        //      terminate called without an active exception
+    }
     return 0;
 }
