@@ -31,6 +31,8 @@ int main() {
         std::vector<std::unique_ptr<int[]>> vupi;   // what have I brought upon this cursed land
         vupi.push_back(std::unique_ptr<int[]>{new int[5]}); // it is hard to comment
         std::cout << vupi[0][3] << '\n';    // well... it compiles... at least
+        vupi.push_back(std::unique_ptr<int[]>{new int[4]}); // WOW! It still works!!!
+        std::cout << vupi[1][3] << '\n';    // WOW! It still works!!!
     }
     std::cout << "\n";
     {   // check that objects are destructed
