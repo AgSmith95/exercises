@@ -4,6 +4,7 @@
 #include "C.hpp"    // virtual methods and default arguments
 #include "D.hpp"    // is pure virtual function in constructor even legit?
 #include "F.hpp"    // yes, if you call another function, which calls pure virtual one
+#include "G.hpp"    // constructors and destructors of fields in case of  non-virtual destructor
 
 //class Erroneous { // example showing that in order to "=0" a destructor it needs to be virtual, at least
 //public:
@@ -49,6 +50,11 @@ int main() {
         // but it causes this:
         //      pure virtual method called
         //      terminate called without an active exception
+    }
+    {   // G.hpp
+        G *gc = new GChild();
+        gc->f();
+        delete gc;
     }
     return 0;
 }
