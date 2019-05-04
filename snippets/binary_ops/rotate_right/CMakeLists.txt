@@ -1,0 +1,51 @@
+# Define library. Only source files here!
+cmake_minimum_required(VERSION 3.10)
+
+project(rotate_right VERSION 0.1 LANGUAGES C)
+
+# set_source_files_properties(src/rotate_right.c PROPERTIES LANGUAGE C)
+add_library(rotate_right STATIC
+        src/rotate_right.cpp)
+
+# Define headers for this library. PUBLIC headers are used for
+# compiling the library, and will be added to consumers' build
+# paths.
+target_include_directories(rotate_right PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+        PRIVATE src)
+
+# If we have compiler requirements for this library, list them
+# here
+# target_compile_features(lib
+#         PUBLIC cxx_auto_type
+#         PRIVATE cxx_variadic_templates)
+
+# Depend on a library that we defined in the top-level file
+# target_link_libraries(rotate_right
+#         someLib)
+
+# 'make install' to the correct locations (provided by GNUInstallDirs).
+install(TARGETS rotate_right EXPORT rotate_right_cfg
+        ARCHIVE  DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        LIBRARY  DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME  DESTINATION ${CMAKE_INSTALL_BINDIR})  # This is for Windows
+install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+# This makes the project importable from the install directory
+# Put config file in per-project dir (name MUST match), can also
+# just go into 'cmake'.
+install(EXPORT rotate_right_cfg DESTINATION share/rotate_right/cmake)
+
+# This makes the project importable from the build directory
+export(TARGETS rotate_right FILE rotate_right_cfg.cmake)
+
+
+# Every library has unit tests, of course
+add_executable(rr_test
+        test/rr_test.cpp)
+
+target_link_libraries(rr_test
+        rotate_right)
+
+add_test(rr_test rr_test)
