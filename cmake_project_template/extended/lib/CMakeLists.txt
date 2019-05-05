@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project(lib VERSION 0.1)
 
-# set_source_files_properties(src/rotate.c PROPERTIES LANGUAGE C)
+# set_source_files_properties(src/lib.cpp PROPERTIES LANGUAGE CXX)
 add_library(lib STATIC
         src/lib.cpp)
 
@@ -22,11 +22,11 @@ target_include_directories(lib PUBLIC
 #         PRIVATE cxx_variadic_templates)
 
 # Depend on a library that we defined in the top-level file
-# target_link_libraries(rotate
+# target_link_libraries(lib
 #         someLib)
 
 # 'make install' to the correct locations (provided by GNUInstallDirs).
-install(TARGETS lib EXPORT lib_cfg
+install(TARGETS lib EXPORT libConfig
         ARCHIVE  DESTINATION ${CMAKE_INSTALL_LIBDIR}
         LIBRARY  DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME  DESTINATION ${CMAKE_INSTALL_BINDIR})  # This is for Windows
@@ -35,10 +35,10 @@ install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 # This makes the project importable from the install directory
 # Put config file in per-project dir (name MUST match), can also
 # just go into 'cmake'.
-install(EXPORT lib_cfg DESTINATION share/lib/cmake)
+install(EXPORT libConfig DESTINATION share/lib/cmake)
 
 # This makes the project importable from the build directory
-export(TARGETS lib FILE lib_cfg.cmake)
+export(TARGETS lib FILE libConfig.cmake)
 
 
 # Every library has unit tests, of course
