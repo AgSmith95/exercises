@@ -1,5 +1,5 @@
 #include <stdint.h>   // for uint32_t
-#include "rotate_right.h"
+#include "rotate.h"
 
 #include <iostream>
 #include <bitset>

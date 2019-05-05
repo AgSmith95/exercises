@@ -1,16 +1,16 @@
 # Define library. Only source files here!
 cmake_minimum_required(VERSION 3.10)
 
-project(rotate_right VERSION 0.1 LANGUAGES C)
+project(rotate_lib VERSION 0.1 LANGUAGES C)
 
-# set_source_files_properties(src/rotate_right.c PROPERTIES LANGUAGE C)
-add_library(rotate_right STATIC
-        src/rotate_right.cpp)
+# set_source_files_properties(src/rotate.c PROPERTIES LANGUAGE C)
+add_library(rotate STATIC
+        src/rotate.cpp)
 
 # Define headers for this library. PUBLIC headers are used for
 # compiling the library, and will be added to consumers' build
 # paths.
-target_include_directories(rotate_right PUBLIC
+target_include_directories(rotate PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
         PRIVATE src)
@@ -22,11 +22,11 @@ target_include_directories(rotate_right PUBLIC
 #         PRIVATE cxx_variadic_templates)
 
 # Depend on a library that we defined in the top-level file
-# target_link_libraries(rotate_right
+# target_link_libraries(rotate
 #         someLib)
 
 # 'make install' to the correct locations (provided by GNUInstallDirs).
-install(TARGETS rotate_right EXPORT rotate_right_cfg
+install(TARGETS rotate EXPORT rotateConfig
         ARCHIVE  DESTINATION ${CMAKE_INSTALL_LIBDIR}
         LIBRARY  DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME  DESTINATION ${CMAKE_INSTALL_BINDIR})  # This is for Windows
@@ -35,17 +35,17 @@ install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 # This makes the project importable from the install directory
 # Put config file in per-project dir (name MUST match), can also
 # just go into 'cmake'.
-install(EXPORT rotate_right_cfg DESTINATION share/rotate_right/cmake)
+install(EXPORT rotateConfig DESTINATION share/rotate/cmake)
 
 # This makes the project importable from the build directory
-export(TARGETS rotate_right FILE rotate_right_cfg.cmake)
+export(TARGETS rotate FILE rotateConfig.cmake)
 
 
 # Every library has unit tests, of course
-add_executable(rr_test
-        test/rr_test.cpp)
+add_executable(rotate_test
+        test/rotate_test.cpp)
 
-target_link_libraries(rr_test
-        rotate_right)
+target_link_libraries(rotate_test
+        rotate)
 
-add_test(rr_test rr_test)
+add_test(rotate_test rotate_test)

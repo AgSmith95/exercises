@@ -18,5 +18,5 @@ include(GNUInstallDirs)
 
 # Targets that we develop here
 enable_testing()
-add_subdirectory(rotate_right)
+add_subdirectory(rotate)
 add_subdirectory(main)
