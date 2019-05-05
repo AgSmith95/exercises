@@ -15,5 +15,7 @@ int main() {
     std::cout << std::bitset<32>(y >> 1) << '\n';
     std::cout << '\n';
     std::cout << std::bitset<32>(rotl32a(y, 31)) << '\n';
+    std::cout << '\n';
+    std::cout << std::bitset<32>(rotr32a(x, 1)) << '\n';
     return 0;
 }
