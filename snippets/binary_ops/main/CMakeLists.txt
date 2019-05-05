@@ -4,4 +4,4 @@ add_executable(binary_ops
 
 # Define the libraries this project depends upon
 target_link_libraries(binary_ops
-        rotate_right)
+        rotate)

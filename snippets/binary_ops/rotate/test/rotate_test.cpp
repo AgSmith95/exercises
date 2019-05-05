@@ -1,6 +1,6 @@
 #include <stdint.h>   // for uint32_t
 #include <assert.h>
-#include "rotate_right.h"
+#include "rotate.h"
 
 //#include <iostream>
 //#include <bitset>

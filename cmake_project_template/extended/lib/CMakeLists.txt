@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project(lib VERSION 0.1)
 
-# set_source_files_properties(src/rotate_right.c PROPERTIES LANGUAGE C)
+# set_source_files_properties(src/rotate.c PROPERTIES LANGUAGE C)
 add_library(lib STATIC
         src/lib.cpp)
 
@@ -22,7 +22,7 @@ target_include_directories(lib PUBLIC
 #         PRIVATE cxx_variadic_templates)
 
 # Depend on a library that we defined in the top-level file
-# target_link_libraries(rotate_right
+# target_link_libraries(rotate
 #         someLib)
 
 # 'make install' to the correct locations (provided by GNUInstallDirs).
