@@ -1,0 +1,17 @@
+                 U __cxa_atexit
+                 U __dso_handle
+                 U _GLOBAL_OFFSET_TABLE_
+00000000000000db t _GLOBAL__sub_I__Z4add8i
+000000000000000f T main
+0000000000000092 t __static_initialization_and_destruction_0(int, int)
+0000000000000000 W add5(int)
+0000000000000000 T add8(int)
+                 U add_all(int)
+                 U std::basic_ostream<char, std::char_traits<char> >::operator<<(int)
+                 U std::ios_base::Init::Init()
+                 U std::ios_base::Init::~Init()
+                 U std::cout
+0000000000000000 r std::piecewise_construct
+0000000000000000 b std::__ioinit
+                 U std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char)
+                 U std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*)

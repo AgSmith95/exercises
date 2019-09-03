@@ -1,0 +1,12 @@
+Without commenting uninlined add8 we have it in T(code) section
+which is forbidden (by one definition rule):
+nm lib.cpp.o | c++filt :
+    0000000000000000 W add5(int)
+    0000000000000000 T add8(int)
+    000000000000000f T add_all(int)
+nm main.cpp.o | c++filt :
+    ...
+    0000000000000000 W add5(int)
+    0000000000000000 T add8(int)
+                     U add_all(int)
+    ...
