@@ -26,6 +26,7 @@ target_include_directories(lib PUBLIC
 #         someLib)
 
 # 'make install' to the correct locations (provided by GNUInstallDirs).
+include(GNUInstallDirs)
 install(TARGETS lib EXPORT libConfig
         ARCHIVE  DESTINATION ${CMAKE_INSTALL_LIBDIR}
         LIBRARY  DESTINATION ${CMAKE_INSTALL_LIBDIR}
