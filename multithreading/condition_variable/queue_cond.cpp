@@ -1,5 +1,5 @@
 // Build: 
-// g++ -std=c++17 inherit_ec.cpp -o inherit_ec
+// g++ -std=c++17 -pthread inherit_ec.cpp -o inherit_ec
 
 #include <iostream>
 #include <thread>
