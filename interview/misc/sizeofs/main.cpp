@@ -10,12 +10,16 @@ struct B {
     char  c0;
     short s;
     char  c1;
+    char  c2;
 };
 
 struct C {
     char c0;
     int  i;
     char c1;
+    char c2;
+    char c3;
+    char c4;
 };
 
 struct D {
@@ -54,3 +58,26 @@ int main() {
     std::cout << "sizeof(E) = " << sizeof(E) << "\n";
     return 0;
 }
+
+/*
+OUTPUT (for x86_64):
+                   sizeof(char) = 1
+         sizeof(unsigned char) = 1
+                 sizeof(short) = 2
+        sizeof(unsigned short) = 2
+                   sizeof(int) = 4
+          sizeof(unsigned int) = 4
+              sizeof(long int) = 8
+     sizeof(unsigned long int) = 8
+         sizeof(long long int) = 8
+sizeof(unsigned long long int) = 8
+                 sizeof(float) = 4
+                sizeof(double) = 8
+           sizeof(long double) = 16
+
+sizeof(A) = 3
+sizeof(B) = 6
+sizeof(C) = 12
+sizeof(D) = 24
+sizeof(E) = 48
+ */
