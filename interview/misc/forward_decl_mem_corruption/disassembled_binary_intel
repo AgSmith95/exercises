@@ -1,0 +1,370 @@
+
+cmake-build-debug/fdecl_mem_corr:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+0000000000001000 <_init>:
+    1000:	48 83 ec 08          	sub    rsp,0x8
+    1004:	48 8b 05 e5 2f 00 00 	mov    rax,QWORD PTR [rip+0x2fe5]        # 3ff0 <__gmon_start__>
+    100b:	48 85 c0             	test   rax,rax
+    100e:	74 02                	je     1012 <_init+0x12>
+    1010:	ff d0                	call   rax
+    1012:	48 83 c4 08          	add    rsp,0x8
+    1016:	c3                   	ret    
+
+Disassembly of section .plt:
+
+0000000000001020 <.plt>:
+    1020:	ff 35 7a 2f 00 00    	push   QWORD PTR [rip+0x2f7a]        # 3fa0 <_GLOBAL_OFFSET_TABLE_+0x8>
+    1026:	ff 25 7c 2f 00 00    	jmp    QWORD PTR [rip+0x2f7c]        # 3fa8 <_GLOBAL_OFFSET_TABLE_+0x10>
+    102c:	0f 1f 40 00          	nop    DWORD PTR [rax+0x0]
+
+0000000000001030 <_Znam@plt>:
+    1030:	ff 25 7a 2f 00 00    	jmp    QWORD PTR [rip+0x2f7a]        # 3fb0 <_Znam@GLIBCXX_3.4>
+    1036:	68 00 00 00 00       	push   0x0
+    103b:	e9 e0 ff ff ff       	jmp    1020 <.plt>
+
+0000000000001040 <_ZdlPv@plt>:
+    1040:	ff 25 72 2f 00 00    	jmp    QWORD PTR [rip+0x2f72]        # 3fb8 <_ZdlPv@GLIBCXX_3.4>
+    1046:	68 01 00 00 00       	push   0x1
+    104b:	e9 d0 ff ff ff       	jmp    1020 <.plt>
+
+0000000000001050 <_Znwm@plt>:
+    1050:	ff 25 6a 2f 00 00    	jmp    QWORD PTR [rip+0x2f6a]        # 3fc0 <_Znwm@GLIBCXX_3.4>
+    1056:	68 02 00 00 00       	push   0x2
+    105b:	e9 c0 ff ff ff       	jmp    1020 <.plt>
+
+0000000000001060 <_ZdaPv@plt>:
+    1060:	ff 25 62 2f 00 00    	jmp    QWORD PTR [rip+0x2f62]        # 3fc8 <_ZdaPv@GLIBCXX_3.4>
+    1066:	68 03 00 00 00       	push   0x3
+    106b:	e9 b0 ff ff ff       	jmp    1020 <.plt>
+
+0000000000001070 <_Unwind_Resume@plt>:
+    1070:	ff 25 5a 2f 00 00    	jmp    QWORD PTR [rip+0x2f5a]        # 3fd0 <_Unwind_Resume@GCC_3.0>
+    1076:	68 04 00 00 00       	push   0x4
+    107b:	e9 a0 ff ff ff       	jmp    1020 <.plt>
+
+Disassembly of section .plt.got:
+
+0000000000001080 <__cxa_finalize@plt>:
+    1080:	ff 25 52 2f 00 00    	jmp    QWORD PTR [rip+0x2f52]        # 3fd8 <__cxa_finalize@GLIBC_2.2.5>
+    1086:	66 90                	xchg   ax,ax
+
+Disassembly of section .text:
+
+0000000000001090 <_start>:
+    1090:	31 ed                	xor    ebp,ebp
+    1092:	49 89 d1             	mov    r9,rdx
+    1095:	5e                   	pop    rsi
+    1096:	48 89 e2             	mov    rdx,rsp
+    1099:	48 83 e4 f0          	and    rsp,0xfffffffffffffff0
+    109d:	50                   	push   rax
+    109e:	54                   	push   rsp
+    109f:	4c 8d 05 8a 03 00 00 	lea    r8,[rip+0x38a]        # 1430 <__libc_csu_fini>
+    10a6:	48 8d 0d 23 03 00 00 	lea    rcx,[rip+0x323]        # 13d0 <__libc_csu_init>
+    10ad:	48 8d 3d e6 00 00 00 	lea    rdi,[rip+0xe6]        # 119a <main>
+    10b4:	ff 15 2e 2f 00 00    	call   QWORD PTR [rip+0x2f2e]        # 3fe8 <__libc_start_main@GLIBC_2.2.5>
+    10ba:	f4                   	hlt    
+    10bb:	0f 1f 44 00 00       	nop    DWORD PTR [rax+rax*1+0x0]
+
+00000000000010c0 <deregister_tm_clones>:
+    10c0:	48 8d 3d 51 2f 00 00 	lea    rdi,[rip+0x2f51]        # 4018 <__TMC_END__>
+    10c7:	48 8d 05 4a 2f 00 00 	lea    rax,[rip+0x2f4a]        # 4018 <__TMC_END__>
+    10ce:	48 39 f8             	cmp    rax,rdi
+    10d1:	74 15                	je     10e8 <deregister_tm_clones+0x28>
+    10d3:	48 8b 05 06 2f 00 00 	mov    rax,QWORD PTR [rip+0x2f06]        # 3fe0 <_ITM_deregisterTMCloneTable>
+    10da:	48 85 c0             	test   rax,rax
+    10dd:	74 09                	je     10e8 <deregister_tm_clones+0x28>
+    10df:	ff e0                	jmp    rax
+    10e1:	0f 1f 80 00 00 00 00 	nop    DWORD PTR [rax+0x0]
+    10e8:	c3                   	ret    
+    10e9:	0f 1f 80 00 00 00 00 	nop    DWORD PTR [rax+0x0]
+
+00000000000010f0 <register_tm_clones>:
+    10f0:	48 8d 3d 21 2f 00 00 	lea    rdi,[rip+0x2f21]        # 4018 <__TMC_END__>
+    10f7:	48 8d 35 1a 2f 00 00 	lea    rsi,[rip+0x2f1a]        # 4018 <__TMC_END__>
+    10fe:	48 29 fe             	sub    rsi,rdi
+    1101:	48 c1 fe 03          	sar    rsi,0x3
+    1105:	48 89 f0             	mov    rax,rsi
+    1108:	48 c1 e8 3f          	shr    rax,0x3f
+    110c:	48 01 c6             	add    rsi,rax
+    110f:	48 d1 fe             	sar    rsi,1
+    1112:	74 14                	je     1128 <register_tm_clones+0x38>
+    1114:	48 8b 05 dd 2e 00 00 	mov    rax,QWORD PTR [rip+0x2edd]        # 3ff8 <_ITM_registerTMCloneTable>
+    111b:	48 85 c0             	test   rax,rax
+    111e:	74 08                	je     1128 <register_tm_clones+0x38>
+    1120:	ff e0                	jmp    rax
+    1122:	66 0f 1f 44 00 00    	nop    WORD PTR [rax+rax*1+0x0]
+    1128:	c3                   	ret    
+    1129:	0f 1f 80 00 00 00 00 	nop    DWORD PTR [rax+0x0]
+
+0000000000001130 <__do_global_dtors_aux>:
+    1130:	80 3d e1 2e 00 00 00 	cmp    BYTE PTR [rip+0x2ee1],0x0        # 4018 <__TMC_END__>
+    1137:	75 2f                	jne    1168 <__do_global_dtors_aux+0x38>
+    1139:	55                   	push   rbp
+    113a:	48 83 3d 96 2e 00 00 	cmp    QWORD PTR [rip+0x2e96],0x0        # 3fd8 <__cxa_finalize@GLIBC_2.2.5>
+    1141:	00 
+    1142:	48 89 e5             	mov    rbp,rsp
+    1145:	74 0c                	je     1153 <__do_global_dtors_aux+0x23>
+    1147:	48 8b 3d ba 2e 00 00 	mov    rdi,QWORD PTR [rip+0x2eba]        # 4008 <__dso_handle>
+    114e:	e8 2d ff ff ff       	call   1080 <__cxa_finalize@plt>
+    1153:	e8 68 ff ff ff       	call   10c0 <deregister_tm_clones>
+    1158:	c6 05 b9 2e 00 00 01 	mov    BYTE PTR [rip+0x2eb9],0x1        # 4018 <__TMC_END__>
+    115f:	5d                   	pop    rbp
+    1160:	c3                   	ret    
+    1161:	0f 1f 80 00 00 00 00 	nop    DWORD PTR [rax+0x0]
+    1168:	c3                   	ret    
+    1169:	0f 1f 80 00 00 00 00 	nop    DWORD PTR [rax+0x0]
+
+0000000000001170 <frame_dummy>:
+    1170:	e9 7b ff ff ff       	jmp    10f0 <register_tm_clones>
+
+0000000000001175 <_Z14writeStringAsmPKcj>:
+    1175:	55                   	push   rbp
+    1176:	48 89 e5             	mov    rbp,rsp
+    1179:	48 89 7d f8          	mov    QWORD PTR [rbp-0x8],rdi
+    117d:	89 75 f4             	mov    DWORD PTR [rbp-0xc],esi
+    1180:	48 c7 c0 01 00 00 00 	mov    rax,0x1
+    1187:	48 c7 c7 01 00 00 00 	mov    rdi,0x1
+    118e:	48 8b 75 f8          	mov    rsi,QWORD PTR [rbp-0x8]
+    1192:	8b 55 f4             	mov    edx,DWORD PTR [rbp-0xc]
+    1195:	0f 05                	syscall 
+    1197:	90                   	nop
+    1198:	5d                   	pop    rbp
+    1199:	c3                   	ret    
+
+000000000000119a <main>:
+    119a:	55                   	push   rbp
+    119b:	48 89 e5             	mov    rbp,rsp
+    119e:	48 83 ec 10          	sub    rsp,0x10
+    11a2:	e8 17 00 00 00       	call   11be <_Z14constructChildv>
+    11a7:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+    11ab:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+    11af:	48 89 c7             	mov    rdi,rax
+    11b2:	e8 89 fe ff ff       	call   1040 <_ZdlPv@plt>
+    11b7:	b8 00 00 00 00       	mov    eax,0x0
+    11bc:	c9                   	leave  
+    11bd:	c3                   	ret    
+
+00000000000011be <_Z14constructChildv>:
+    11be:	55                   	push   rbp
+    11bf:	48 89 e5             	mov    rbp,rsp
+    11c2:	41 54                	push   r12
+    11c4:	53                   	push   rbx
+    11c5:	bf 18 00 00 00       	mov    edi,0x18
+    11ca:	e8 81 fe ff ff       	call   1050 <_Znwm@plt>
+    11cf:	48 89 c3             	mov    rbx,rax
+    11d2:	48 89 df             	mov    rdi,rbx
+    11d5:	e8 04 01 00 00       	call   12de <_ZN5ChildC1Ev>
+    11da:	48 89 d8             	mov    rax,rbx
+    11dd:	eb 16                	jmp    11f5 <_Z14constructChildv+0x37>
+    11df:	49 89 c4             	mov    r12,rax
+    11e2:	48 89 df             	mov    rdi,rbx
+    11e5:	e8 56 fe ff ff       	call   1040 <_ZdlPv@plt>
+    11ea:	4c 89 e0             	mov    rax,r12
+    11ed:	48 89 c7             	mov    rdi,rax
+    11f0:	e8 7b fe ff ff       	call   1070 <_Unwind_Resume@plt>
+    11f5:	5b                   	pop    rbx
+    11f6:	41 5c                	pop    r12
+    11f8:	5d                   	pop    rbp
+    11f9:	c3                   	ret    
+
+00000000000011fa <_Z12deleteParentP6Parent>:
+    11fa:	55                   	push   rbp
+    11fb:	48 89 e5             	mov    rbp,rsp
+    11fe:	48 83 ec 10          	sub    rsp,0x10
+    1202:	48 89 7d f8          	mov    QWORD PTR [rbp-0x8],rdi
+    1206:	48 83 7d f8 00       	cmp    QWORD PTR [rbp-0x8],0x0
+    120b:	74 17                	je     1224 <_Z12deleteParentP6Parent+0x2a>
+    120d:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+    1211:	48 8b 00             	mov    rax,QWORD PTR [rax]
+    1214:	48 83 c0 08          	add    rax,0x8
+    1218:	48 8b 00             	mov    rax,QWORD PTR [rax]
+    121b:	48 8b 55 f8          	mov    rdx,QWORD PTR [rbp-0x8]
+    121f:	48 89 d7             	mov    rdi,rdx
+    1222:	ff d0                	call   rax
+    1224:	90                   	nop
+    1225:	c9                   	leave  
+    1226:	c3                   	ret    
+    1227:	90                   	nop
+
+0000000000001228 <_ZN6ParentC1Ev>:
+    1228:	55                   	push   rbp
+    1229:	48 89 e5             	mov    rbp,rsp
+    122c:	48 83 ec 10          	sub    rsp,0x10
+    1230:	48 89 7d f8          	mov    QWORD PTR [rbp-0x8],rdi
+    1234:	48 8d 15 15 2b 00 00 	lea    rdx,[rip+0x2b15]        # 3d50 <_ZTV6Parent+0x10>
+    123b:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+    123f:	48 89 10             	mov    QWORD PTR [rax],rdx
+    1242:	bf 40 00 00 00       	mov    edi,0x40
+    1247:	e8 e4 fd ff ff       	call   1030 <_Znam@plt>
+    124c:	48 89 c2             	mov    rdx,rax
+    124f:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+    1253:	48 89 50 08          	mov    QWORD PTR [rax+0x8],rdx
+    1257:	be 09 00 00 00       	mov    esi,0x9
+    125c:	48 8d 3d a1 0d 00 00 	lea    rdi,[rip+0xda1]        # 2004 <_IO_stdin_used+0x4>
+    1263:	e8 0d ff ff ff       	call   1175 <_Z14writeStringAsmPKcj>
+    1268:	90                   	nop
+    1269:	c9                   	leave  
+    126a:	c3                   	ret    
+    126b:	90                   	nop
+
+000000000000126c <_ZN6ParentD1Ev>:
+    126c:	55                   	push   rbp
+    126d:	48 89 e5             	mov    rbp,rsp
+    1270:	48 83 ec 10          	sub    rsp,0x10
+    1274:	48 89 7d f8          	mov    QWORD PTR [rbp-0x8],rdi
+    1278:	48 8d 15 d1 2a 00 00 	lea    rdx,[rip+0x2ad1]        # 3d50 <_ZTV6Parent+0x10>
+    127f:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+    1283:	48 89 10             	mov    QWORD PTR [rax],rdx
+    1286:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+    128a:	48 8b 40 08          	mov    rax,QWORD PTR [rax+0x8]
+    128e:	48 85 c0             	test   rax,rax
+    1291:	74 10                	je     12a3 <_ZN6ParentD1Ev+0x37>
+    1293:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+    1297:	48 8b 40 08          	mov    rax,QWORD PTR [rax+0x8]
+    129b:	48 89 c7             	mov    rdi,rax
+    129e:	e8 bd fd ff ff       	call   1060 <_ZdaPv@plt>
+    12a3:	be 0a 00 00 00       	mov    esi,0xa
+    12a8:	48 8d 3d 5f 0d 00 00 	lea    rdi,[rip+0xd5f]        # 200e <_IO_stdin_used+0xe>
+    12af:	e8 c1 fe ff ff       	call   1175 <_Z14writeStringAsmPKcj>
+    12b4:	90                   	nop
+    12b5:	c9                   	leave  
+    12b6:	c3                   	ret    
+    12b7:	90                   	nop
+
+00000000000012b8 <_ZN6ParentD0Ev>:
+    12b8:	55                   	push   rbp
+    12b9:	48 89 e5             	mov    rbp,rsp
+    12bc:	48 83 ec 10          	sub    rsp,0x10
+    12c0:	48 89 7d f8          	mov    QWORD PTR [rbp-0x8],rdi
+    12c4:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+    12c8:	48 89 c7             	mov    rdi,rax
+    12cb:	e8 9c ff ff ff       	call   126c <_ZN6ParentD1Ev>
+    12d0:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+    12d4:	48 89 c7             	mov    rdi,rax
+    12d7:	e8 64 fd ff ff       	call   1040 <_ZdlPv@plt>
+    12dc:	c9                   	leave  
+    12dd:	c3                   	ret    
+
+00000000000012de <_ZN5ChildC1Ev>:
+    12de:	55                   	push   rbp
+    12df:	48 89 e5             	mov    rbp,rsp
+    12e2:	53                   	push   rbx
+    12e3:	48 83 ec 18          	sub    rsp,0x18
+    12e7:	48 89 7d e8          	mov    QWORD PTR [rbp-0x18],rdi
+    12eb:	48 8b 45 e8          	mov    rax,QWORD PTR [rbp-0x18]
+    12ef:	48 89 c7             	mov    rdi,rax
+    12f2:	e8 31 ff ff ff       	call   1228 <_ZN6ParentC1Ev>
+    12f7:	48 8d 15 32 2a 00 00 	lea    rdx,[rip+0x2a32]        # 3d30 <_ZTV5Child+0x10>
+    12fe:	48 8b 45 e8          	mov    rax,QWORD PTR [rbp-0x18]
+    1302:	48 89 10             	mov    QWORD PTR [rax],rdx
+    1305:	bf 40 00 00 00       	mov    edi,0x40
+    130a:	e8 21 fd ff ff       	call   1030 <_Znam@plt>
+    130f:	48 89 c2             	mov    rdx,rax
+    1312:	48 8b 45 e8          	mov    rax,QWORD PTR [rbp-0x18]
+    1316:	48 89 50 10          	mov    QWORD PTR [rax+0x10],rdx
+    131a:	be 08 00 00 00       	mov    esi,0x8
+    131f:	48 8d 3d f3 0c 00 00 	lea    rdi,[rip+0xcf3]        # 2019 <_IO_stdin_used+0x19>
+    1326:	e8 4a fe ff ff       	call   1175 <_Z14writeStringAsmPKcj>
+    132b:	eb 1a                	jmp    1347 <_ZN5ChildC1Ev+0x69>
+    132d:	48 89 c3             	mov    rbx,rax
+    1330:	48 8b 45 e8          	mov    rax,QWORD PTR [rbp-0x18]
+    1334:	48 89 c7             	mov    rdi,rax
+    1337:	e8 30 ff ff ff       	call   126c <_ZN6ParentD1Ev>
+    133c:	48 89 d8             	mov    rax,rbx
+    133f:	48 89 c7             	mov    rdi,rax
+    1342:	e8 29 fd ff ff       	call   1070 <_Unwind_Resume@plt>
+    1347:	48 83 c4 18          	add    rsp,0x18
+    134b:	5b                   	pop    rbx
+    134c:	5d                   	pop    rbp
+    134d:	c3                   	ret    
+
+000000000000134e <_ZN5ChildD1Ev>:
+    134e:	55                   	push   rbp
+    134f:	48 89 e5             	mov    rbp,rsp
+    1352:	48 83 ec 10          	sub    rsp,0x10
+    1356:	48 89 7d f8          	mov    QWORD PTR [rbp-0x8],rdi
+    135a:	48 8d 15 cf 29 00 00 	lea    rdx,[rip+0x29cf]        # 3d30 <_ZTV5Child+0x10>
+    1361:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+    1365:	48 89 10             	mov    QWORD PTR [rax],rdx
+    1368:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+    136c:	48 8b 40 10          	mov    rax,QWORD PTR [rax+0x10]
+    1370:	48 85 c0             	test   rax,rax
+    1373:	74 10                	je     1385 <_ZN5ChildD1Ev+0x37>
+    1375:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+    1379:	48 8b 40 10          	mov    rax,QWORD PTR [rax+0x10]
+    137d:	48 89 c7             	mov    rdi,rax
+    1380:	e8 db fc ff ff       	call   1060 <_ZdaPv@plt>
+    1385:	be 09 00 00 00       	mov    esi,0x9
+    138a:	48 8d 3d 91 0c 00 00 	lea    rdi,[rip+0xc91]        # 2022 <_IO_stdin_used+0x22>
+    1391:	e8 df fd ff ff       	call   1175 <_Z14writeStringAsmPKcj>
+    1396:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+    139a:	48 89 c7             	mov    rdi,rax
+    139d:	e8 ca fe ff ff       	call   126c <_ZN6ParentD1Ev>
+    13a2:	90                   	nop
+    13a3:	c9                   	leave  
+    13a4:	c3                   	ret    
+    13a5:	90                   	nop
+
+00000000000013a6 <_ZN5ChildD0Ev>:
+    13a6:	55                   	push   rbp
+    13a7:	48 89 e5             	mov    rbp,rsp
+    13aa:	48 83 ec 10          	sub    rsp,0x10
+    13ae:	48 89 7d f8          	mov    QWORD PTR [rbp-0x8],rdi
+    13b2:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+    13b6:	48 89 c7             	mov    rdi,rax
+    13b9:	e8 90 ff ff ff       	call   134e <_ZN5ChildD1Ev>
+    13be:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+    13c2:	48 89 c7             	mov    rdi,rax
+    13c5:	e8 76 fc ff ff       	call   1040 <_ZdlPv@plt>
+    13ca:	c9                   	leave  
+    13cb:	c3                   	ret    
+    13cc:	0f 1f 40 00          	nop    DWORD PTR [rax+0x0]
+
+00000000000013d0 <__libc_csu_init>:
+    13d0:	41 57                	push   r15
+    13d2:	49 89 d7             	mov    r15,rdx
+    13d5:	41 56                	push   r14
+    13d7:	49 89 f6             	mov    r14,rsi
+    13da:	41 55                	push   r13
+    13dc:	41 89 fd             	mov    r13d,edi
+    13df:	41 54                	push   r12
+    13e1:	4c 8d 25 28 29 00 00 	lea    r12,[rip+0x2928]        # 3d10 <__frame_dummy_init_array_entry>
+    13e8:	55                   	push   rbp
+    13e9:	48 8d 2d 28 29 00 00 	lea    rbp,[rip+0x2928]        # 3d18 <__init_array_end>
+    13f0:	53                   	push   rbx
+    13f1:	4c 29 e5             	sub    rbp,r12
+    13f4:	48 83 ec 08          	sub    rsp,0x8
+    13f8:	e8 03 fc ff ff       	call   1000 <_init>
+    13fd:	48 c1 fd 03          	sar    rbp,0x3
+    1401:	74 1b                	je     141e <__libc_csu_init+0x4e>
+    1403:	31 db                	xor    ebx,ebx
+    1405:	0f 1f 00             	nop    DWORD PTR [rax]
+    1408:	4c 89 fa             	mov    rdx,r15
+    140b:	4c 89 f6             	mov    rsi,r14
+    140e:	44 89 ef             	mov    edi,r13d
+    1411:	41 ff 14 dc          	call   QWORD PTR [r12+rbx*8]
+    1415:	48 83 c3 01          	add    rbx,0x1
+    1419:	48 39 dd             	cmp    rbp,rbx
+    141c:	75 ea                	jne    1408 <__libc_csu_init+0x38>
+    141e:	48 83 c4 08          	add    rsp,0x8
+    1422:	5b                   	pop    rbx
+    1423:	5d                   	pop    rbp
+    1424:	41 5c                	pop    r12
+    1426:	41 5d                	pop    r13
+    1428:	41 5e                	pop    r14
+    142a:	41 5f                	pop    r15
+    142c:	c3                   	ret    
+    142d:	0f 1f 00             	nop    DWORD PTR [rax]
+
+0000000000001430 <__libc_csu_fini>:
+    1430:	c3                   	ret    
+
+Disassembly of section .fini:
+
+0000000000001434 <_fini>:
+    1434:	48 83 ec 08          	sub    rsp,0x8
+    1438:	48 83 c4 08          	add    rsp,0x8
+    143c:	c3                   	ret    
