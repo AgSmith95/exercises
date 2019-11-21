@@ -6,8 +6,8 @@ class Parent;
 class Child;
 
 void writeStringAsm(const char* str, const unsigned len) {
-    register const char* arg3 asm("rsi") = str;
-    register const unsigned arg4 asm("rdx") = len;
+//    register const char* arg3 asm("rsi") = str;
+//    register const unsigned arg4 asm("rdx") = len;
     asm(
         "mov rax, 1 ;"
         "mov rdi, 1 ;"
@@ -15,6 +15,14 @@ void writeStringAsm(const char* str, const unsigned len) {
         "mov edx, DWORD PTR [rbp-12] ;"
         "syscall;"
     );
+    /**
+     // AT&T syntax:
+         "mov $0x1 , %rax ;"
+         "mov $0x1 , %rdi ;"
+         "mov -0x8(%rbp) , %rsi ;"
+         "mov -0xc(%rbp) , %edx ;"
+         "syscall ;"
+     */
 }
 
 Parent* constructChild();
