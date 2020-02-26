@@ -1,3 +1,6 @@
 .idea/
 cmake_project_template/cmake-build-debug/
 ram_eater/cmake-build-debug/
+*.exe
+*.out
+*.gch
