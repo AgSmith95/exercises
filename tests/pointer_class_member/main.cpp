@@ -7,7 +7,7 @@ private:
 public:
     A(int* a): data{a} {};
     void show() {
-        std::cout << "data = 0x" << std::hex << data << '\n';
+        std::cout << "data = " << std::hex << data << '\n';
     }
 
     int* getData() {
@@ -18,7 +18,7 @@ public:
 int main() {
     int x = 10;
     int *px = &x;
-    std::cout << "px = 0x" << std::hex << px << '\n';
+    std::cout << "px = " << std::hex << px << '\n';
     // px = 0x7ffd7b1861b4 // - example output, may vary
 
     A a(px);
@@ -26,8 +26,8 @@ int main() {
     // data = 0x7ffd7b1861b4
 
     px = nullptr;
-    std::cout << "px = 0x" << std::hex << px << '\n';
-    // px = 0x0
+    std::cout << "px = " << std::hex << px << '\n';
+    // px = 0
 
     a.show();
     // data = 0x7ffd7b1861b4
