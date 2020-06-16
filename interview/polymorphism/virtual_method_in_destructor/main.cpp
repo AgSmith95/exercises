@@ -24,5 +24,9 @@ int main() {
     Parent* child = new Child();    // Child
     child->method();                // Child
     delete child;                   // Parent
+    // As a general rule, you should never call virtual functions in constructors or destructors.
+    // If you do, those calls will never go to a more derived class than the currently
+    // executing constructor or destructor.
+    // In other words, during construction and destruction, virtual functions aren't virtual.
     return 0;
 }
