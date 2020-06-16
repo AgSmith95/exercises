@@ -1,6 +1,11 @@
+# CLion
 .idea/
-cmake_project_template/cmake-build-debug/
-ram_eater/cmake-build-debug/
+cmake-build-*/
+
+# vscode
+.vscode/
+
+# compiler output
 *.exe
 *.out
 *.gch
