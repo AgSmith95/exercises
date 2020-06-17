@@ -34,7 +34,11 @@ int main() {
     std::function lambda_2 = [&](int i) {
         std::cout << "lambda with capture list : " << i + a.getData() << '\n';
     };
-    lambda_2(777);
+    lambda_2(767);
+
+    //std::function<void(int)> lambda_3 = lambda_2; // before clang-tidy
+    const std::function<void(int)>& lambda_3 = lambda_2; // after clang-tidy
+    lambda_3(878);
 
     return 0;
 }
