@@ -72,5 +72,6 @@ int main() {
     std::cout << find_min<int>({10,9,8,7,7,7,8,9}) << '\n';
     std::cout << find_min<int>({5,5,5,3,3,3,5,5,5}) << '\n';
     std::cout << find_min<int>({1,2,3}) << '\n';
+    std::cout << find_min<int>({99}) << '\n';
     return 0;
 }
