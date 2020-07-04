@@ -40,10 +40,7 @@ bool less_or_equal(const T& l, const T& r) {
     if (l < r) {
         return true;
     }
-    return ((l < r) == false) &&
-           (!(l < r) == true) &&
-           ((r < l) == false) &&
-           (!(r < l) == true);
+    return !(r < l);
 }
 
 template <typename T>
@@ -55,14 +52,6 @@ T find_min(const std::vector<T>& v) {
     return v[i];
 }
 
-
-
-
-//template <typename T>
-//T find_min_2(const std::vector<T>& v) {
-//    ;
-//}
-
 #include <iostream>
 
 int main() {
@@ -73,5 +62,6 @@ int main() {
     std::cout << find_min<int>({5,5,5,3,3,3,5,5,5}) << '\n';
     std::cout << find_min<int>({1,2,3}) << '\n';
     std::cout << find_min<int>({99}) << '\n';
+    std::cout << find_min<int>({-10,-11,-12,-13,-13,-13,-15,-15,-15,-13,-13,-13,-10,-5,-3}) << '\n';
     return 0;
 }
