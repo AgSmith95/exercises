@@ -44,6 +44,11 @@ bool less_or_equal(const T& l, const T& r) {
 }
 
 template <typename T>
+bool equal(const T& l, const T& r) {
+    return !(l < r) && !(r < l);
+}
+
+template <typename T>
 T find_min(const std::vector<T>& v) {
     size_t i = v.size() - 1;
     while ( (i != 0) && less_or_equal(v[i - 1], v[i]) ) {
@@ -52,16 +57,137 @@ T find_min(const std::vector<T>& v) {
     return v[i];
 }
 
+template <typename T>
+T find_min_log(const std::vector<T>& v) {
+    auto beg = v.begin();
+    auto end = v.end() - 1;
+    decltype(beg) mid;
+    while ((end - beg) > 1) {
+        mid = beg + (end - beg) / 2;
+        if (*(mid - 1) < *mid) {
+            end = mid - 1;
+        }
+        else {
+            beg = mid;
+        }
+    }
+    if (*beg < *end) {
+        return *beg;
+    }
+    return *end;
+}
+
+template <typename T>
+T find_min_log_with_duplicates(const std::vector<T>& v) {
+    auto beg = v.begin();
+    auto end = v.end() - 1;
+    decltype(beg) mid;
+    while ((end - beg) > 1) {
+        mid = beg + (end - beg) / 2;
+        if (*(mid - 1) < *mid) {
+            end = mid - 1;
+        }
+        else if (!equal(*mid, *(mid - 1))) {
+            beg = mid;
+        }
+        else {
+            // mid and mid-1 are equal - totally messed up case, tbh
+            // have to find borders of an interval with equal values
+            decltype(beg) lborder = mid;
+            decltype(beg) rborder = mid;
+            while (((lborder - beg) > 1) && equal(*(lborder-1), *lborder)) {
+                --lborder;
+            }
+            while (((end - rborder) > 1) && equal(*rborder, *(rborder+1))) {
+                ++rborder;
+            }
+            // analysis time
+            if ((*lborder < *(lborder-1)) == (*rborder < *(rborder+1))) {
+                return *mid;
+            }
+            else if (*lborder < *(lborder-1)) {
+                beg = rborder;
+            }
+            else {
+                end = lborder;
+            }
+        }
+    }
+    if (*beg < *end) {
+        return *beg;
+    }
+    return *end;
+}
+
 #include <iostream>
+#include <fstream>
+#include "helpers.hpp"
+#include <cmath>
+#include <algorithm>
 
 int main() {
-    std::cout << find_min<int>({5,4,3,2,2,2,1,1,1,2,2,2,2,3,4,5}) << '\n';
-    std::cout << find_min<int>({10,9,8,7}) << '\n';
-    std::cout << find_min<int>({10,9,8,7,8,9}) << '\n';
-    std::cout << find_min<int>({10,9,8,7,7,7,8,9}) << '\n';
-    std::cout << find_min<int>({5,5,5,3,3,3,5,5,5}) << '\n';
-    std::cout << find_min<int>({1,2,3}) << '\n';
-    std::cout << find_min<int>({99}) << '\n';
-    std::cout << find_min<int>({-10,-11,-12,-13,-13,-13,-15,-15,-15,-13,-13,-13,-10,-5,-3}) << '\n';
+    std::cout << find_min<int>({5,4,3,2,2,2,1,1,1,2,2,2,2,3,4,5}) << ' ';
+    std::cout << find_min<int>({5,4,3,2,1,6,7,8,9}) << ' ';
+    std::cout << find_min<int>({10,9,8,7}) << ' ';
+    std::cout << find_min<int>({10,9,8,7,8,9}) << ' ';
+    std::cout << find_min<int>({10,9,8,7,7,7,8,9}) << ' ';
+    std::cout << find_min<int>({5,5,5,3,3,3,5,5,5}) << ' ';
+    std::cout << find_min<int>({1,2,3}) << ' ';
+    std::cout << find_min<int>({99}) << ' ';
+    std::cout << find_min<int>({99,98}) << ' ';
+    std::cout << find_min<int>({-10,-11,-12,-13,-13,-13,-15,-15,-15,-13,-13,-13,-10,-5,-3}) << ' ';
+    std::cout << "\n======== LOG ========\n";
+    std::cout << find_min_log<int>({5,4,3,2,2,2,1,1,1,2,2,2,2,3,4,5}) << ' ';
+    std::cout << find_min_log<int>({5,4,3,2,1,6,7,8,9}) << ' ';
+    std::cout << find_min_log<int>({10,9,8,7}) << ' ';
+    std::cout << find_min_log<int>({10,9,8,7,8,9}) << ' ';
+    std::cout << find_min_log<int>({10,9,8,7,7,7,8,9}) << ' ';
+    std::cout << find_min_log<int>({5,5,5,3,3,3,5,5,5}) << ' ';
+    std::cout << find_min_log<int>({1,2,3}) << ' ';
+    std::cout << find_min_log<int>({99}) << ' ';
+    std::cout << find_min_log<int>({99,98}) << ' ';
+    std::cout << find_min_log<int>({-10,-11,-12,-13,-13,-13,-15,-15,-15,-13,-13,-13,-10,-5,-3}) << ' ';
+    std::cout << "\n======== LOG WITH DUP ========\n";
+    std::cout << find_min_log_with_duplicates<int>({5,4,3,2,2,2,1,1,1,2,2,2,2,3,4,5}) << ' ';
+    std::cout << find_min_log_with_duplicates<int>({5,4,3,2,1,6,7,8,9}) << ' ';
+    std::cout << find_min_log_with_duplicates<int>({10,9,8,7}) << ' ';
+    std::cout << find_min_log_with_duplicates<int>({10,9,8,7,8,9}) << ' ';
+    std::cout << find_min_log_with_duplicates<int>({10,9,8,7,7,7,8,9}) << ' ';
+    std::cout << find_min_log_with_duplicates<int>({5,5,5,3,3,3,5,5,5}) << ' ';
+    std::cout << find_min_log_with_duplicates<int>({1,2,3}) << ' ';
+    std::cout << find_min_log_with_duplicates<int>({99}) << ' ';
+    std::cout << find_min_log_with_duplicates<int>({99,98}) << ' ';
+    std::cout << find_min_log_with_duplicates<int>({-10,-11,-12,-13,-13,-13,-15,-15,-15,-13,-13,-13,-10,-5,-3}) << ' ';
+    std::cout << "\n======== HELPERS TEST ========\n";
+    writeToOut(generate(20, 5));
+    writeToOut(generate(20, 5));
+    writeToOut(generate(20, 5));
+    writeToOut(generate(20, 5));
+    writeToOut(generate(5, 20));
+    writeToOut(generate(5, 20));
+    writeToOut(generate(5, 20));
+    writeToOut(generate(5, 20));
+    std::cout << "\n======== RANDOMIZED TEST ========\n";
+    size_t size;
+    size_t pos;
+    size_t err_count = 0;
+    std::ofstream output_file;
+    output_file.open("output.txt");
+    for (size_t i = 0; i < 100; ++i) {
+        size = abs(distrib(gen)) % 100;
+        pos = abs(distrib(gen)) % 100;
+        if (size < pos) {
+            std::swap(size, pos);
+        }
+        auto v = generate(size, pos);
+        auto result = find_min_log_with_duplicates(v);
+        if (result != v[pos]) {
+            ++err_count;
+            std::cout << "ERROR " << err_count << '\n';
+            output_file << result << " != " << "v[" << pos << "] = " << v[pos] << " | size = " << size << " | v : [";
+            writeToOut(v, output_file);
+            output_file << "]\n";
+        }
+    }
     return 0;
 }
