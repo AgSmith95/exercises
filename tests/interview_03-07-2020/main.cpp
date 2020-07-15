@@ -95,15 +95,18 @@ T find_min_log_with_duplicates(const std::vector<T>& v) {
             // have to find borders of an interval with equal values
             decltype(beg) lborder = mid;
             decltype(beg) rborder = mid;
-            while (((lborder - beg) > 1) && equal(*(lborder-1), *lborder)) {
+            while (((lborder - beg) > 0) && equal(*(lborder-1), *lborder)) {
                 --lborder;
             }
-            while (((end - rborder) > 1) && equal(*rborder, *(rborder+1))) {
+            while (((end - rborder) > 0) && equal(*rborder, *(rborder+1))) {
                 ++rborder;
             }
             // analysis time
-            if ((*lborder < *(lborder-1)) == (*rborder < *(rborder+1))) {
-                return *mid;
+            if (lborder == beg) {
+                beg = rborder;
+            }
+            else if (rborder == end) {
+                end = lborder;
             }
             else if (*lborder < *(lborder-1)) {
                 beg = rborder;
@@ -158,6 +161,13 @@ int main() {
     std::cout << find_min_log_with_duplicates<int>({99}) << ' ';
     std::cout << find_min_log_with_duplicates<int>({99,98}) << ' ';
     std::cout << find_min_log_with_duplicates<int>({-10,-11,-12,-13,-13,-13,-15,-15,-15,-13,-13,-13,-10,-5,-3}) << ' ';
+    std::cout << "\nOTHERS: ";
+    // 140
+    std::cout << find_min_log_with_duplicates<int>({209, 209, 209, 209, 209, 209, 140, 140, 140, 184, 184, 184, 184, 184, 268, 268, 268, 268, 268, 268}) << ' ';
+    // -458
+    std::cout << find_min_log_with_duplicates<int>({-458, -458, -458, -458, -458, -458, -444, -405, -405, -405, -405, -405, -405, -405, -405, -405, -405, -405, -405, -311, -311, -311}) << ' ';
+    // 785
+    std::cout << find_min_log_with_duplicates<int>({785, 785, 785, 785, 785, 785}) << ' ';
     std::cout << "\n======== HELPERS TEST ========\n";
     writeToOut(generate(20, 5));
     writeToOut(generate(20, 5));
@@ -173,11 +183,14 @@ int main() {
     size_t err_count = 0;
     std::ofstream output_file;
     output_file.open("output.txt");
-    for (size_t i = 0; i < 100; ++i) {
-        size = abs(distrib(gen)) % 100;
-        pos = abs(distrib(gen)) % 100;
+    for (size_t i = 1; i < 90001; ++i) {
+        size = abs(distrib(gen));
+        pos = abs(distrib(gen));
         if (size < pos) {
             std::swap(size, pos);
+        }
+        if (pos == size) {
+            --pos;
         }
         auto v = generate(size, pos);
         auto result = find_min_log_with_duplicates(v);
@@ -188,6 +201,16 @@ int main() {
             writeToOut(v, output_file);
             output_file << "]\n";
         }
+
+        // progress bar... sort of
+        if (i % 10000 == 0) {
+            std::cout << (i / 10000) << '\n';
+        }
+        if (i % 100 == 0) {
+            std::cout << '.';
+        }
     }
+
+    std::cout << '\n';
     return 0;
 }

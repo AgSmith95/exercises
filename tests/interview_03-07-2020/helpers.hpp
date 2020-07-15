@@ -19,12 +19,15 @@ void writeToOut(const Container& c, std::ostream& out = std::cout) {
 
 std::random_device rd;  //Will be used to obtain a seed for the random number engine
 std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
-std::uniform_int_distribution<int> distrib(-1000, 1000);
+std::uniform_int_distribution<int> distrib(1, 1000);
 
 std::uniform_int_distribution<int> distrib_diff(0, 100);
 std::vector<int> generate(size_t size, size_t pos) {
     if (size < pos) {
         std::swap(size, pos);
+    }
+    else if (pos == size) {
+        pos -= 1;
     }
     size_t i = 0;
     int val = distrib(gen);
