@@ -16,8 +16,9 @@ int main() {
     std::cout << sizeof(char) << '\n';
     std::cout << sizeof(int) << '\n';
     std::cout << sizeof(long) << '\n';
-    std::cout << "A(" << a.getI() << ',' << a.getL() << ")\n";
+    std::cout << "A(" << a.getI() << ',' << a.getL() << ")\n"; // A(5,10)
 
+    // !!! not on every architecture !!!
     // A:   16 bytes =
     //       4 bytes - I
     //       4 bytes - padding
@@ -25,7 +26,7 @@ int main() {
     char* hack = (char*)&a;
     *((int*)hack) = 10;
     *((long*)(hack+8)) = 15;
-    std::cout << "A(" << a.getI() << ',' << a.getL() << ")\n";
+    std::cout << "A(" << a.getI() << ',' << a.getL() << ")\n"; // A(10,15)
 
     return 0;
 }
