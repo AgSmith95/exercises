@@ -5,11 +5,11 @@
 typedef int (*func)(int);
 
 int plus5(int i) {
-	return i+5;
+    return i+5;
 }
 
 int plus7(int i) {
-	return i+7;
+    return i+7;
 }
 
 int (*Func (int i, int (*f)(int)))(int) {
@@ -28,36 +28,38 @@ int (*Func (int i, int (*f)(int)))(int) {
 using Foo = func(*)(int, func); // same as typedef above
 
 int main() {
-	func f;
-	
-	f = plus5;
-	std::cout << f(5) << '\n';
+    int (*function)(int) = plus5;       // declare variable
+    std::cout << function(15) << '\n';  // 20
 
-	f = plus7;
-	std::cout << f(3) << '\n';
+    func f;                             // via typedef
+    f = plus5;
+    std::cout << f(5) << '\n';          // 10
 
-	std::function<int(int)> ff = plus5;
-    std::cout << ff(5) << '\n';
+    f = plus7;
+    std::cout << f(3) << '\n';          // 10
+
+    std::function<int(int)> ff = plus5; // via std::dunction
+    std::cout << ff(5) << '\n';         // 10
 
     ff = plus7;
-    std::cout << ff(3) << '\n';
+    std::cout << ff(3) << '\n';         // 10
 
-    std::cout << Func(3, plus7)(3) << '\n';
-    std::cout << Func(5, plus7)(5) << '\n';
-    std::cout << Func(7, plus5)(3) << '\n';
+    std::cout << Func(3, plus7)(3) << '\n'; // 10
+    std::cout << Func(5, plus7)(5) << '\n'; // 10
+    std::cout << Func(7, plus5)(3) << '\n'; // 10
 
     std::function<func(int, func)> F = Func;
-    std::cout << F(3, plus7)(3) << '\n';
-    std::cout << F(5, plus7)(5) << '\n';
-    std::cout << F(7, plus5)(3) << '\n';
+    std::cout << F(3, plus7)(3) << '\n';    // 10
+    std::cout << F(5, plus7)(5) << '\n';    // 10
+    std::cout << F(7, plus5)(3) << '\n';    // 10
 
     std::function<int(*(int, int(*)(int) ))(int)> FF = Func;
-    std::cout << FF(3, plus7)(3) << '\n';
-    std::cout << FF(5, plus7)(5) << '\n';
-    std::cout << FF(7, plus5)(3) << '\n';
+    std::cout << FF(3, plus7)(3) << '\n';   // 10
+    std::cout << FF(5, plus7)(5) << '\n';   // 10
+    std::cout << FF(7, plus5)(3) << '\n';   // 10
 
     Foo foo = Func;
-    std::cout << foo(3, plus7)(3) << '\n';
-    std::cout << foo(5, plus7)(5) << '\n';
-    std::cout << foo(7, plus5)(3) << '\n';
+    std::cout << foo(3, plus7)(3) << '\n';  // 10
+    std::cout << foo(5, plus7)(5) << '\n';  // 10
+    std::cout << foo(7, plus5)(3) << '\n';  // 10
 }
