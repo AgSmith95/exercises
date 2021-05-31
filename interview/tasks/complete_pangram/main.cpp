@@ -2,6 +2,8 @@
 #include <string>
 #include <cctype>
 
+#include <cassert>
+
 std::string getMissingLetters(const std::string& s) {
     auto size = s.size();
     if (size == 0) return "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -27,5 +29,23 @@ int main() {
     std::string s("abc ghi opqrs VWxY");
     std::cout << s << '\n';
     std::cout << getMissingLetters(s) << '\n';
+
+    // TESTING PHASE SETUP
+    s = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    std::string res;
+    std::string tmp;
+    tmp = getMissingLetters(s);
+    assert(tmp == res);
+
+    // TESTING PHASE
+    char c = ' ';
+    while (!s.empty()) {
+        c = s.back();
+        res.insert(0, 1, c);
+        s.pop_back();
+        tmp = getMissingLetters(s);
+        assert(tmp == res);
+    }
+
     return 0;
 }
