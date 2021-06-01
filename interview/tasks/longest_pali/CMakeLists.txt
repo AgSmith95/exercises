@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(longest_pali)
 set(CMAKE_CXX_STANDARD 17)
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES main.cpp code.cpp)
 set(EXECUTABLE longest_pali)
 add_executable(${EXECUTABLE} ${SOURCE_FILES})
 
