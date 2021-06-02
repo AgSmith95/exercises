@@ -4,25 +4,34 @@
 
 using namespace std;
 
-void find_digits(unsigned n, bool *digits) {
-    if (n == 0) digits[0] = true;
+unsigned find_digits(unsigned n) {
+    unsigned ret = 0;
+    if (n == 0) {
+        return 1;
+    }
     while (n != 0) {
-        digits[n % 10] = true;
+        ret |= 1 << (n%10);
         n /= 10;
     }
+    return ret;
 }
 
 bool LEGO(unsigned n, const std::vector<unsigned>& v) {
-    bool digits_n[10] = {};
-    bool digits_v[10] = {};
+    if (v.empty()) return false;
 
-    find_digits(n, digits_n);
-    for (const auto& el: v) find_digits(el, digits_v);
+    unsigned digits_n;
+    unsigned digits_v = 0;
 
-    bool ret = !v.empty();
-    for (int i = 0; i < 10; ++i) ret &= !digits_n[i] | digits_v[i];
+    digits_n = find_digits(n);
+    auto it = v.begin();
+    while (digits_v < 0b1111111111 && it != v.end()) {
+        digits_v |= find_digits(*it);
+        ++it;
+    }
 
-    return ret;
+    // dn = 0b 0101001110
+    // dv = 0b 1101101110
+    return (digits_n & digits_v) == digits_n;
 }
 
 /*
@@ -33,6 +42,7 @@ canBeBuilt(123, {3, 1}) => false
 */
 
 int main() {
+
     // testcases given
     assert(LEGO(1234, {4,2,3,1}));
     assert(LEGO(1001, {1,0}));
@@ -53,5 +63,7 @@ int main() {
     assert(!LEGO(213, {2,3}));
     assert(!LEGO(213, {1,3}));
     assert(!LEGO(213, {1,2}));
+
+    assert(LEGO(1234, {2376, 145809, 87976, 214155, 35438390}));
     return 0;
 }
