@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cctype>
+#include <vector>
 
 #include <cassert>
 
@@ -8,10 +9,10 @@ std::string getMissingLetters(const std::string& s) {
     auto size = s.size();
     if (size == 0) return "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    char letters[26] = {};
+    std::vector<bool> letters(26, false);
     for (size_t i = 0; i < size; ++i) {
         if (isalpha(s[i])) {
-            ++letters[toupper(s[i]) - 65];
+            letters[toupper(s[i]) - 65] = true;
         }
     }
 

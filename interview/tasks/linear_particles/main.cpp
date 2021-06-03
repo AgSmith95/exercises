@@ -1,13 +1,12 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <list>
 #include <cassert>
 
 // s is a line representing positions in the chamber
 // particles is a list of positions in s
 // speed is positive for R and negative for L particles
-void update_positions(std::string& s, std::list<int>& particles, int speed) {
+void update_positions(std::string& s, std::vector<int>& particles, int speed) {
     if (particles.empty()) return;
     auto it = particles.begin();
     while (it != particles.end()) {
@@ -36,8 +35,8 @@ std::vector<std::string> simulate_particles(const std::string& s, int speed) {
     }
 
     // < PARSE INPUT>
-    std::list<int> left_particles;
-    std::list<int> right_particles;
+    std::vector<int> left_particles;
+    std::vector<int> right_particles;
     for (size_t i = 0; i < size; ++i) {
         if (s[i] == 'R') right_particles.push_back((int)i);
         else if (s[i] == 'L') left_particles.push_back((int)i);
