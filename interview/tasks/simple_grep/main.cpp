@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cassert>
 using namespace std;
 
 bool findPattern(const string& s, const string& pattern, string& wildcardContent) {
@@ -26,8 +27,8 @@ bool findPattern(const string& s, const string& pattern, string& wildcardContent
         wildcardContent = "";
         return false;
     }
-    auto last_pos = s.find(last, asterisk + 1);
-    if (!last.empty() && (last_pos == std::string::npos || (s.size() - last_pos) > last.size())) {
+    auto last_pos = s.rfind(last);
+    if (last_pos == std::string::npos || (s.size() - last_pos) > last.size()) {
         wildcardContent = "";
         return false;
     }
@@ -41,6 +42,12 @@ bool findPattern(const string& s, const string& pattern, string& wildcardContent
     return true;
 }
 
+void test_findPattern();
+
+int main() {
+    test_findPattern();
+}
+
 /*
 
 findPattern("abcdefg", "abc*", wildcardContent) => true, wildcardContent="defg"
@@ -50,24 +57,39 @@ findPattern("abcdefg", "ab*f", wildcardContent) => false, wildcardContent=""
 
 */
 
-int main() {
+void test_findPattern() {
     string wildcardContent;
+    bool res = false;
 
-    std::cout << findPattern("abcdefg", "abc*", wildcardContent) << " ";
-    std::cout << '"' << wildcardContent << "\"\n";
+    res = findPattern("abcdefg", "abc*", wildcardContent);
+    assert(res);
+    assert(wildcardContent == "defg");
 
-    std::cout << findPattern("abcdefg", "*efg", wildcardContent) << " ";
-    std::cout << '"' << wildcardContent << "\"\n";
+    res = findPattern("abcdefg", "*efg", wildcardContent);
+    assert(res);
+    assert(wildcardContent == "abcd");
 
-    std::cout << findPattern("abcdefg", "ab*g", wildcardContent) << " ";
-    std::cout << '"' << wildcardContent << "\"\n";
+    res = findPattern("abcdefg", "ab*g", wildcardContent);
+    assert(res);
+    assert(wildcardContent == "cdef");
 
-    std::cout << findPattern("abcdefg", "ab*f", wildcardContent) << " ";
-    std::cout << '"' << wildcardContent << "\"\n";
+    res = findPattern("abcdefg", "ab*f", wildcardContent);
+    assert(!res);
+    assert(wildcardContent == "");
 
-    std::cout << findPattern("aabcdefg", "ab*f", wildcardContent) << " ";
-    std::cout << '"' << wildcardContent << "\"\n";
+    res = findPattern("aabcdefg", "ab*f", wildcardContent);
+    assert(!res);
+    assert(wildcardContent == "");
 
-    std::cout << findPattern("hello world", "hello*", wildcardContent) << " ";
-    std::cout << '"' << wildcardContent << "\"\n";
+    res = findPattern("hello world", "hello*", wildcardContent);
+    assert(res);
+    assert(wildcardContent == " world");
+
+    res = findPattern("hello world world", "*world", wildcardContent);
+    assert(res);
+    assert(wildcardContent == "hello world ");
+
+    res = findPattern("hello world world", "hello*world", wildcardContent);
+    assert(res);
+    assert(wildcardContent == " world ");
 }
