@@ -30,6 +30,7 @@ int main() {
         perror("mmap");
         return 30;
     }
+    std::cout << "addr: " << std::hex << addr << '\n';
 
     // work goes here
     pthread_spinlock_t *spinlock = (pthread_spinlock_t*)(addr);
@@ -40,14 +41,7 @@ int main() {
     }
 
     unsigned *count = (unsigned*)(spinlock + 1);
-    char **pos = (char**)(count + 1);
-    pthread_spin_lock(spinlock);
-    if (*pos == 0) {
-        *pos = (char*)(pos + 1);
-    }
-    std::cout << *spinlock << '\n';
-    std::cout << std::hex << (void*)*pos << '\n';
-    pthread_spin_unlock(spinlock);
+    char *start_pos = (char*)(count + 1);
 
     // spawn new process here
 
@@ -59,8 +53,7 @@ int main() {
         s.push_back('\n');
 
         pthread_spin_lock(spinlock);
-        memcpy(*pos, s.c_str(), s.size());
-        *pos += s.size();
+        memcpy(start_pos + *count, s.c_str(), s.size());
         *count += s.size();
         pthread_spin_unlock(spinlock);
     }

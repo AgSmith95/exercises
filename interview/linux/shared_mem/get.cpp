@@ -24,15 +24,13 @@ int main() {
         perror("mmap");
         return 30;
     }
+    std::cout << "addr: " << std::hex << addr << '\n';
 
     // work goes here
     pthread_spinlock_t *spinlock = (pthread_spinlock_t*)(addr);
-    std::cout << *spinlock << '\n';
 
     unsigned *count = (unsigned*)(spinlock + 1);
-    char **pos = (char**)(count + 1);
-    const char* start_pos = (char*)(pos + 1);
-    std::cout << std::hex << (void*)start_pos << '\n';
+    const char* start_pos = (char*)(count + 1);
     char buff[STORAGE_SIZE] = {};
     bool print = false;
 
@@ -46,7 +44,6 @@ int main() {
         else if (*count > 0) {
             print = true;
             memcpy(buff, start_pos, *count);
-            *pos -= *count;
             *count = 0;
         }
         pthread_spin_unlock(spinlock);
