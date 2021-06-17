@@ -25,28 +25,25 @@ int main() {
     auto min_el = ::min_element(vec.begin(), vec.end(), std::less());
     std::cout << "min_el in vec = " << *min_el << "\n";
 
-    auto min_max = minmax_elements(vec.begin(), vec.end(), std::less());
+    auto min_max = minmax_elements_2(vec.begin(), vec.end(), std::less());
     std::cout << "min element [" << *min_max.first << "] is at position <" << std::distance(vec.begin(), min_max.first) << ">\n";
     std::cout << "max element [" << *min_max.second << "] is at position <" << std::distance(vec.begin(), min_max.second) << ">\n";
 
     vec = {};
-    min_max = minmax_elements(vec.begin(), vec.end(), std::less());
+    min_max = minmax_elements_2(vec.begin(), vec.end(), std::less());
     assert(min_max.first == vec.end());
     assert(min_max.second == vec.end());
 
     vec = {10};
-    min_max = minmax_elements(vec.begin(), vec.end(), std::less());
+    min_max = minmax_elements_2(vec.begin(), vec.end(), std::less());
     assert(min_max.first == vec.begin());
     assert(min_max.second == vec.begin());
 
     vec = {2,2,2,2,2,5,5,5,5,5};
     std::cout << "vec = { "; for (const auto& e: vec) { std::cout << e << " "; } std::cout << "}\n";
-    auto b = vec.begin();
-    auto e = vec.end();
-    auto l = std::less();
-    min_max = minmax_elements(b, e, l);
-    std::cout << "min element [" << *min_max.first << "] is at position <" << std::distance(vec.begin(), min_max.first) << ">\n";
-    std::cout << "max element [" << *min_max.second << "] is at position <" << std::distance(vec.begin(), min_max.second) << ">\n";
+    min_max = minmax_elements_2(vec.begin(), vec.end(), std::less());
+    assert(min_max.first == vec.begin());
+    assert(min_max.second == vec.begin()+9);
 
     return 0;
 }
