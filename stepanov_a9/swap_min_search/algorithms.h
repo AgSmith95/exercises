@@ -44,7 +44,7 @@ template <typename I, typename Compare>
 // requires I is a ForwardIterator
 // Compare is a StrictWeakOrdering on I::value_type
 inline
-std::pair<I,I> minmax_elements(I first, I last, Compare cmp) {
+std::pair<I,I> minmax_elements_2(I first, I last, Compare cmp) {
     if (first == last) return std::make_pair(last, last);
     I min_el = first;
     ++first;
@@ -70,10 +70,10 @@ std::pair<I,I> minmax_elements(I first, I last, Compare cmp) {
         ++first;
         ++next;
     }
-    if (first != last || next != last) {
-        if (next != last) { // in case we swapped next and first somewhere
-            first = next;
-        }
+    if (next != last) { // in case we swapped next and first somewhere
+        first = next;
+    }
+    if (first != last) {
         if (!cmp(*first, *max_el)) {
             max_el = first;
         }
@@ -82,6 +82,50 @@ std::pair<I,I> minmax_elements(I first, I last, Compare cmp) {
         }
     }
 
+    return std::make_pair(min_el, max_el);
+}
+
+// their code
+template <typename I, typename Compare>
+// requires I is a ForwardIterator
+// and Compare is a StrictWeakOrdering on ValueType(I)
+std::pair<I, I> minmax_elements(I first, I last, Compare cmp) {
+    if (first == last) return std::make_pair(last, last);
+    I min_el = first;
+    ++first;
+    if (first == last) return std::make_pair(min_el, min_el);
+    ++first;
+    I max_el = first;
+    if (cmp(*max_el, *min_el)) {
+        std::swap(min_el, max_el);
+    }
+    while (first != last && successor(first) != last) {
+        // invariants:
+        // min_el points to current minimum
+        // max_el points to current maximum
+        // first and next point to next 2 elements
+        I potential_min = first;
+        I potential_max = successor(first);
+        if (cmp(*potential_max, *potential_min)) {
+            std::swap(potential_max, potential_min);
+        }
+        if (!cmp(*potential_max, *max_el)) {
+            max_el = potential_max;
+        }
+        if (cmp(*potential_min, *min_el)) {
+            min_el = potential_min;
+        }
+        ++first;
+        ++first;
+    }
+    if (first != last) {
+        if (!cmp(*first, *max_el)) {
+            max_el = first;
+        }
+        if (cmp(*first, *min_el)) {
+            min_el = first;
+        }
+    }
     return std::make_pair(min_el, max_el);
 }
 
