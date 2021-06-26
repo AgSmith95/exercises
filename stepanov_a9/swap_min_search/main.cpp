@@ -55,5 +55,24 @@ int main() {
     assert(min_max.first == vec.begin());
     assert(min_max.second == vec.begin()+9);
 
+    int data[] = {9, 13, 7, 124, 32, 17, 8, 32, 237, 417, 41, 42, 13, 14, 15};
+    std::cout << "data = [ "; for (auto x: data) std::cout << x << ' '; std::cout << "]\n";
+    int* end = data + sizeof(data)/sizeof(int);
+    int* min = min_element_binary(data, end, std::less());
+    if (min == end) std::cout << "    NO min_element_binary for data\n";
+    else {
+        std::cout << "    data min_element_binary = " << *min <<
+                  " at position <" << (min - data) << ">\n";
+    }
+
+    vec = {4,2,5,1,6,1,8,7,9,3,1,9,1};
+    std::cout << "vec = { "; for (const auto& e: vec) { std::cout << e << " "; } std::cout << "}\n";
+    min_el = min_element_binary(vec.begin(), vec.end(), std::less());
+    if (min_el != vec.end()) {
+        std::cout << "    vec min_element_binary = " << *min_el
+                  << " at position <" << (min_el - vec.begin()) << ">\n";
+    }
+    else std::cout << "    NO min_element_binary for vec\n";
+
     return 0;
 }
