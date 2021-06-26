@@ -72,10 +72,7 @@ std::pair<I,I> minmax_elements_2(I first, I last, Compare cmp) {
         ++++first;
         ++++next;
     }
-    if (next != last) { // in case we swapped next and first somewhere
-        first = next;
-    }
-    if (first != last) {
+    if (successor(first) == last) {
         if (!cmp(*first, *max_el)) {
             max_el = first;
         }
