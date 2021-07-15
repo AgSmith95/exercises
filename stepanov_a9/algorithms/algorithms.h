@@ -2,6 +2,7 @@
 #define ALGORITHMS_H
 
 #include "binary_counter.h"
+#include "list_pool.h"
 
 template<typename T, typename Compare>
 // requires Compare defines a StrictWeakOrdering on T
