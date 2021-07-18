@@ -43,7 +43,7 @@ template <typename I, typename Compare>
 // Compare is a StrictWeakOrdering on I::value_type
 inline
 I min_element_binary(I first, I last, Compare cmp) {
-    binary_counter<I, min_op<Compare>> min_counter(min_op<Compare>(cmp), last);
+    binary_counter<min_op<Compare>, I> min_counter(min_op<Compare>(cmp), last);
     while (first != last) min_counter.add(first++);
     return min_counter.reduce();
 }
