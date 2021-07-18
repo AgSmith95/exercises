@@ -9,7 +9,7 @@ template<typename T, typename I, typename Op>
 // requires I is ForwardIterator and ValueType(I) == T
 T add_to_counter(I first, I last, Op op, const T& zero, T carry) {
     while (first != last) {
-        if (*first  == zero) {
+        if (*first == zero) {
             *first = carry;
             return zero;
         }
@@ -31,12 +31,10 @@ T reduce_counter(I first, I last, Op op, const T& zero) {
     if (first == last) return zero;
 
     T result = *first;
-    ++first;
-    while (first != last) {
+    while (++first != last) {
         if (*first != zero) {
             result = op(*first, result);
         }
-        ++first;
     }
     return result;
 }
@@ -45,16 +43,16 @@ T reduce_counter(I first, I last, Op op, const T& zero) {
 // - vector for the counter
 // - zero
 // - op
-template<typename T, typename Op>
+template<typename Op, typename T = typename Op::argument_type>
 class binary_counter {
 private:
     std::vector<T> counter;
-    T zero;
     Op op;
+    T zero;
 public:
     // Constructor. Input arguments:
-    binary_counter(const Op& op, const T& zero): zero(zero), op(op) {
-        counter.reserve(32);
+    binary_counter(const Op& op, const T& zero): op(op), zero(zero) {
+        counter.reserve(24);
     }
 
     // add

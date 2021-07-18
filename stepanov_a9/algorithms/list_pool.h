@@ -32,18 +32,44 @@ private:
         return list_type(pool.size());
     }
 public:
-    // empty
-    list_type empty() const {
+    typedef typename std::vector<node_t>::size_type size_type;
+
+    // end
+    list_type end() const {
         return list_type(0);
     }
 
-    bool is_empty(list_type x) const {
-        return x == empty();
+    bool is_end(list_type x) const {
+        return x == end();
+    }
+
+    // empty
+    list_type empty() const {
+        return pool.empty();
+    }
+
+    // size/capacity
+    size_type size() const {
+        return pool.size();
+    }
+
+    size_type capacity() const {
+        return pool.capacity();
+    }
+
+    void reserve(size_type n) {
+        pool.reserve(n);
     }
 
     // constructor
     list_pool() {
-        free_list = empty();
+        //free_list = empty();
+        free_list = end();
+    }
+
+    list_pool(size_type n) {
+        free_list = end();
+        reserve(n);
     }
 
     // Basic operations:
@@ -67,40 +93,47 @@ public:
 
     // free
     list_type free(list_type x) {
-        list_type cdr = next(x);
+        list_type tail = next(x);
         next(x) = free_list;
         free_list = x;
-        return cdr;
+        return tail;
     }
 
     // allocate
-    list_type allocate(const T& value, list_type tail) {
+    list_type allocate(const T& val, list_type tail) {
         list_type list = free_list;
-        if (is_empty(free_list)) {
+        if (is_end(free_list)) {
             list = new_list();
         }
         else {
             free_list = next(free_list);
         }
-        value(list) = value;
+        value(list) = val;
         next(list) = tail;
         return list;
     }
 };
 
 template<typename T, typename N>
-void free_list(list_pool<T, N>& pool,
-               typename list_pool<T, N>::list_type x)
-{
-    while (!pool.is_empty()) x = pool.free(x);
+using list_type_t = typename list_pool<T, N>::list_type;
+
+template<typename T, typename N>
+void free_list(list_pool<T, N>& pool, list_type_t<T, N> x) {
+    while (!pool.is_end(x)) x = pool.free(x);
 }
 
-//template<typename T, typename N, typename Cmp>
-//void min_element_list(list_pool<T, N>& pool,
-//               typename list_pool<T, N>::list_type x,
-//               Cmp c)
-//{
-//
-//}
+template<typename T, typename N, typename Cmp>
+list_type_t<T, N> min_element_list(const list_pool<T, N>& pool, list_type_t<T, N> list, Cmp cmp) {
+    if (pool.is_end(list)) return list;
+    list_type_t<T, N> current_min = list;
+    list = pool.next(list);
+    while (!pool.is_end(list)) {
+        if (cmp(pool.value(list), pool.value((current_min)))) {
+            current_min = list;
+        }
+        list = pool.next(list);
+    }
+    return current_min;
+}
 
 #endif//LIST_POOL_H

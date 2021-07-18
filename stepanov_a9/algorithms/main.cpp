@@ -6,6 +6,7 @@
 #include "min.h"
 #include "max.h"
 #include "algorithms.h"
+#include "min_element1_2.h"
 
 int main() {
     assert(min(5,3) == 3);
@@ -73,6 +74,17 @@ int main() {
                   << " at position <" << (min_el - vec.begin()) << ">\n";
     }
     else std::cout << "    NO min_element_binary for vec\n";
+
+    std::cout << "testing min_element1_2 on:\n";
+    std::cout << "data = [ "; for (auto x: data) std::cout << x << ' '; std::cout << "]\n";
+    end = data + sizeof(data)/sizeof(int);
+    std::pair<int*, int*> min1_2 = min_element1_2(data, end, std::less());
+    if (min1_2.first == end) {
+        std::cout << "    No elements\n";
+    }
+    else {
+        std::cout << "    Min is " << *(min1_2.first) << " " << *(min1_2.second) << '\n';
+    }
 
     return 0;
 }
