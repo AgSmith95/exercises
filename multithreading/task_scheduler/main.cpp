@@ -31,5 +31,10 @@ int main() {
     sched.schedule(hello, pstart, 500);
     sched.schedule(hello, pstart, 1500);
 
+    std::this_thread::sleep_for(1500ms);
+    start = steady_clock::now();
+
+    sched.schedule(hello, pstart, 200);
+
     return 0;
 }
