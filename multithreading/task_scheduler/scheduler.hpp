@@ -17,26 +17,8 @@ using namespace std::literals::chrono_literals;
 using lock_t = std::unique_lock<std::mutex>;
 typedef time_point<steady_clock> timestamp;
 
-class Scheduler {
+class notification_queue {
 public:
-    Scheduler(): _worker([&](){ run(); }) {}
-    ~Scheduler() {
-        done();
-        _worker.join();
-    }
-
-    void schedule(callback cb, void *args, unsigned millis) {
-        push(cb, args, millis);
-    }
-private:
-    void run() {
-        while (true) {
-            Task f;
-            if (!pop(f)) break;
-            f();
-        }
-    }
-
     bool pop(Task &task) {
         lock_t lk(_mutex);
 
@@ -44,14 +26,16 @@ private:
         if (_tasks.empty()) return false;
 
         auto front = _tasks.begin();
-        while (front->first > steady_clock::now()) _ready.wait_until(lk, front->first, [&](){
-            auto new_front = _tasks.begin();
-            if (new_front->first < front->first) {
-                front = new_front;
-                return false;
-            }
-            return true;
-        });
+        while (front->first > steady_clock::now()) {
+            _ready.wait_until(lk, front->first, [&]() {
+                auto new_front = _tasks.begin();
+                if (new_front->first < front->first) {
+                    front = new_front;
+                    return false;
+                }
+                return true;
+            });
+        }
 
         task = std::move(front->second);
         _tasks.erase(front);
@@ -71,13 +55,35 @@ private:
         lock_t lock{_mutex};
         _done = true;
     }
-
-    std::thread _worker;
-
+private:
     std::multimap<timestamp, Task> _tasks;
     std::mutex _mutex;
     std::condition_variable _ready;
     bool _done{false};
+};
+
+class Scheduler {
+public:
+    Scheduler(): _worker([&](){ run(); }) {}
+    ~Scheduler() {
+        _q.done();
+        _worker.join();
+    }
+
+    void schedule(callback cb, void *args, unsigned millis) {
+        _q.push(cb, args, millis);
+    }
+private:
+    void run() {
+        while (true) {
+            Task f;
+            if (!_q.pop(f)) break;
+            f();
+        }
+    }
+
+    std::thread _worker;
+    ::notification_queue _q;
 };
 
 
