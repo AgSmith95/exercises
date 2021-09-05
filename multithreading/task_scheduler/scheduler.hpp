@@ -112,7 +112,7 @@ public:
     }
 private:
     void run() {
-        while (true) {
+        for (;;) { // while (true)
             Task f;
             if (!_q.pop(f)) break;
             f();
