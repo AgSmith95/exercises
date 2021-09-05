@@ -44,31 +44,54 @@ void print_vect(const std::vector<T>& v) {
 }
 
 int main() {
-    std::vector<int> v = {0, 1, 2, 5, 3, 3, 0};
-    print_vect(v);
-    // next
-    print_vect(next_permutation(v));
-    print_vect(next_permutation(v));
-    print_vect(next_permutation(v));
-    print_vect(next_permutation(v));
+    if (true) {
+        std::vector<int> v1 = {0, 1, 2, 5, 3, 3, 0};
+        print_vect(v1);
+        // next
+        print_vect(next_permutation(v1)); // 0 1 2 5 3 3 0
+        print_vect(next_permutation(v1)); // 0 1 3 0 2 5 3
+        print_vect(next_permutation(v1)); // 0 1 3 0 3 2 5
+        print_vect(next_permutation(v1)); // 0 1 3 0 3 5 2
 
-    std::cout << '\n';
+        std::cout << '\n';
 
-    std::vector<int> v2 = {4, 2, 5, 3, 1};
-    print_vect(v2);
-    // next
-    print_vect(next_permutation(v2));
-    print_vect(next_permutation(v2));
-    print_vect(next_permutation(v2));
-    print_vect(next_permutation(v2));
+        // check yourself
+        std::vector<int> v1c = {0, 1, 2, 5, 3, 3, 0};
+        print_vect(v1c);
+        std::next_permutation(v1c.begin(), v1c.end()); // 0 1 2 5 3 3 0
+        print_vect(v1c);
+        std::next_permutation(v1c.begin(), v1c.end()); // 0 1 3 0 2 5 3
+        print_vect(v1c);
+        std::next_permutation(v1c.begin(), v1c.end()); // 0 1 3 0 3 2 5
+        print_vect(v1c);
+        std::next_permutation(v1c.begin(), v1c.end()); // 0 1 3 0 3 5 2
+        print_vect(v1c);
 
-    std::cout << '\n';
+        std::cout << '\n';
+    }
 
-    std::vector<char> v3 = {'F', 'A', 'D', 'E'};
-    print_vect(v3);
-    // next
-    print_vect(next_permutation(v3));
-    print_vect(next_permutation(v3));
-    print_vect(next_permutation(v3));
+    if (true) {
+        std::vector<int> v2 = {4, 2, 5, 3, 1};
+        print_vect(v2);
+        // next
+        print_vect(next_permutation(v2));
+        print_vect(next_permutation(v2));
+        print_vect(next_permutation(v2));
+        print_vect(next_permutation(v2));
+
+        std::cout << '\n';
+    }
+
+    if (true) {
+        std::vector<char> v3 = {'F', 'A', 'D', 'E'};
+        print_vect(v3);
+        // next
+        print_vect(next_permutation(v3));
+        print_vect(next_permutation(v3));
+        print_vect(next_permutation(v3));
+
+        std::cout << '\n';
+    }
+
     return 0;
 }
