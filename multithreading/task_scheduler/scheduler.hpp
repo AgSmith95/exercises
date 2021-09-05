@@ -1,6 +1,8 @@
 #ifndef SCHEDULER_H
 #define SCHEDULER_H
 
+#include "task.hpp"
+
 #include <iostream>
 #include <thread>
 #include <mutex>
@@ -11,13 +13,8 @@
 #include <map>
 #include <algorithm>
 
-#include "task.hpp"
-
-using namespace std::chrono;
-using namespace std::literals::chrono_literals;
-
 using lock_t = std::unique_lock<std::mutex>;
-typedef time_point<steady_clock> timestamp;
+using timestamp = std::chrono::time_point<std::chrono::steady_clock>;
 
 
 struct TaskID {
@@ -25,7 +22,7 @@ struct TaskID {
     Task task;
 };
 
-class notification_queue {
+class NotificationQueue {
 public:
     bool pop(Task &task) {
         lock_t lk(_mutex);
@@ -34,7 +31,7 @@ public:
         if (_tasks.empty()) return false;
 
         auto front = _tasks.begin();
-        while (front->first > steady_clock::now()) {
+        while (front->first > std::chrono::steady_clock::now()) {
             _ready.wait_until(lk, front->first, [&]() {
                 auto new_front = _tasks.begin();
                 if (new_front == _tasks.end()) {
@@ -59,7 +56,7 @@ public:
     }
 
     TaskID push(callback cb, void *args, unsigned millis) {
-        timestamp tp = steady_clock::now() + milliseconds(millis);
+        timestamp tp = std::chrono::steady_clock::now() + std::chrono::milliseconds(millis);
         Task t{cb, args};
         TaskID result{tp, t};
         {
@@ -126,7 +123,7 @@ private:
     std::atomic<unsigned> _index{0};
 
     std::thread _worker;
-    ::notification_queue _q;
+    ::NotificationQueue _q;
 };
 
 

@@ -2,7 +2,7 @@
 #define TASK_H
 
 
-typedef void (*callback)(void*);
+using callback = void (*)(void*);
 void stub(void*) {};
 
 
