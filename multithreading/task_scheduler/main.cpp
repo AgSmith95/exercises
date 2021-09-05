@@ -8,7 +8,7 @@
 //using namespace std::chrono;
 //using namespace std::literals::chrono_literals;
 
-#include <map>
+#include <cassert>
 
 #include "scheduler.hpp"
 #include "task.hpp"
@@ -18,6 +18,9 @@ void hello(void *then) {
     timestamp now = steady_clock::now();
     if (then) {
         std::cout << (now - *(timestamp*)then) / 1ms << "ms passed\n";
+    }
+    else {
+        std::cout << "empty\n";
     }
 }
 
@@ -34,7 +37,16 @@ int main() {
     std::this_thread::sleep_for(1500ms);
     start = steady_clock::now();
 
-    sched.schedule(hello, pstart, 200);
+    TaskID x = sched.schedule(hello, pstart, 200);
+    TaskID y = sched.schedule(hello, pstart, 5);
+    sched.schedule(hello, pstart, 0);
+
+    bool res = sched.unschedule(x);
+    assert(res);
+    res = sched.unschedule(y);
+    assert(res);
+    res = sched.unschedule(x);
+    assert(!res);
 
     return 0;
 }
