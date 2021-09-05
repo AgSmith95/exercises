@@ -5,9 +5,11 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
+#include <atomic>
 #include <chrono>
 #include <queue>
 #include <map>
+#include <algorithm>
 
 #include "task.hpp"
 
@@ -16,6 +18,12 @@ using namespace std::literals::chrono_literals;
 
 using lock_t = std::unique_lock<std::mutex>;
 typedef time_point<steady_clock> timestamp;
+
+
+struct TaskID {
+    timestamp tp;
+    Task task;
+};
 
 class notification_queue {
 public:
@@ -29,12 +37,19 @@ public:
         while (front->first > steady_clock::now()) {
             _ready.wait_until(lk, front->first, [&]() {
                 auto new_front = _tasks.begin();
+                if (new_front == _tasks.end()) {
+                    return false;
+                }
                 if (new_front->first < front->first) {
                     front = new_front;
                     return false;
                 }
                 return true;
             });
+            if (_tasks.empty()) {
+                _ready.wait(lk, [&]() { return _tasks.empty(); });
+                front = _tasks.begin();
+            }
         }
 
         task = std::move(front->second);
@@ -43,12 +58,33 @@ public:
         return true;
     }
 
-    void push(callback cb, void *args, unsigned millis) {
+    TaskID push(callback cb, void *args, unsigned millis) {
+        timestamp tp = steady_clock::now() + milliseconds(millis);
+        Task t{cb, args};
+        TaskID result{tp, t};
         {
             lock_t lk(_mutex);
-            _tasks.insert(std::make_pair(steady_clock::now() + milliseconds(millis), Task{cb, args}));
+            _tasks.insert(std::make_pair(tp, t));
         }
         _ready.notify_one();
+        return result;
+    }
+
+    bool remove(const TaskID &id) {
+        bool result = false;
+        lock_t lk(_mutex);
+        auto range = _tasks.equal_range(id.tp);
+        auto it = range.first;
+        while (it != range.second) {
+            if (it->second == id.task) {
+                it = _tasks.erase(it);
+                result = true;
+            }
+            else {
+                ++it;
+            }
+        }
+        return result;
     }
 
     void done() {
@@ -70,8 +106,12 @@ public:
         _worker.join();
     }
 
-    void schedule(callback cb, void *args, unsigned millis) {
-        _q.push(cb, args, millis);
+    TaskID schedule(callback cb, void *args, unsigned millis) {
+        return _q.push(cb, args, millis);
+    }
+
+    bool unschedule(const TaskID &id) {
+        return _q.remove(id);
     }
 private:
     void run() {
@@ -81,6 +121,9 @@ private:
             f();
         }
     }
+
+    const unsigned _count{std::thread::hardware_concurrency()};
+    std::atomic<unsigned> _index{0};
 
     std::thread _worker;
     ::notification_queue _q;
