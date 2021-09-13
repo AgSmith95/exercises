@@ -2,11 +2,8 @@
 #include <cstdlib>
 
 unsigned long long collatz(unsigned long long n) {
-    if (n == 1) return 1;
-    else if (n == 2) return 2;
-
     unsigned long long result = 0;
-    while (n != 4) {
+    while (n != 2) {
         ++result;
         if (n % 2 == 0) {
             n /= 2;
@@ -15,13 +12,15 @@ unsigned long long collatz(unsigned long long n) {
             n = 3*n + 1;
         }
     }
-    result += 3;
+    result += 2;
 
     return result;
 }
 
 unsigned long long longest_collatz_uptoN(unsigned long long n) {
     if (n == 0) return 0;
+    else if (n == 1) return 1;
+    else if (n == 2) return 2;
 
     unsigned long long index = 1;
     unsigned long long max = 1;
