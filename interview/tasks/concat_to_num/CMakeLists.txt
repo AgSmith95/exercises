@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 3.10)
+project(add_up_to_num)
+set(CMAKE_CXX_STANDARD 17)
+
+set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES2 another.cpp)
+set(EXECUTABLE add_up_to_num)
+set(EXECUTABLE2 LEGO)
+add_executable(${EXECUTABLE} ${SOURCE_FILES})
+add_executable(${EXECUTABLE2} ${SOURCE_FILES2})
+
+#if(MSVC)
+#  target_compile_options(${EXECUTABLE} PRIVATE /W4 /WX)
+#else()
+#  target_compile_options(${EXECUTABLE} PRIVATE -Wall -Wextra -pedantic -Werror)
+#endif()
