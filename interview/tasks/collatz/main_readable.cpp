@@ -22,8 +22,8 @@ unsigned long long longest_collatz_uptoN(unsigned long long n) {
     else if (n == 1) return 1;
     else if (n == 2) return 2;
 
-    unsigned long long index = 1;
-    unsigned long long max = 1;
+    unsigned long long index = 2;
+    unsigned long long max = 2;
     unsigned long long current;
     while (n > 1) {
         current = collatz(n);
