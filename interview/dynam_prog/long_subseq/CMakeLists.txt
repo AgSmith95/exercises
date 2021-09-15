@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(longest_subsequence)
 set(CMAKE_CXX_STANDARD 17)
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES main.cpp longest_subsequence.hpp)
 set(EXECUTABLE longest_subsequence)
 add_executable(${EXECUTABLE} ${SOURCE_FILES})
 
