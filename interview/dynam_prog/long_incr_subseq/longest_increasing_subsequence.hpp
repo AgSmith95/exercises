@@ -37,6 +37,64 @@ std::vector<vt<It>> longest_increasing_subsequence(It first, It last, vt<It> pre
 }
 
 template<typename It>
+unsigned long long longest_increasing_subsequence_num(It first, It last) {
+    unsigned long long result;
+    if (first == last) result = 0;
+    else {
+        std::vector<unsigned long long> L(std::distance(first, last));
+        auto L_begin = L.begin();
+        *L_begin = 1;
+
+        auto LI = ::next(L_begin);
+        for (It I = ::next(first); I != last; ++I, ++LI) {
+            auto LJ = L_begin;
+            for (It J = first; J != I; ++J, ++LJ) {
+                if (*J < *I && *LJ > *LI) {
+                    *LI = *LJ;
+                }
+            }
+            ++*LI;
+        }
+
+        auto max = std::max_element(L_begin, L.end());
+        result = *max;
+    }
+    return result;
+}
+
+template<typename It>
+using tmp_storage_iterator = typename std::vector< std::vector<vt<It>> >::iterator;
+
+template<typename It>
+std::vector<vt<It>> longest_increasing_subsequence_dynamic(It first, It last) {
+    std::vector<vt<It>> result{};
+    if (first != last) {
+        std::vector< std::vector<vt<It>> > L(std::distance(first, last), std::vector<vt<It>>{});
+        tmp_storage_iterator<It> L_begin = L.begin();
+        L_begin->push_back(*first);
+
+        tmp_storage_iterator<It> LI = ::next(L_begin);
+        for (It I = ::next(first); I != last; ++I, ++LI) {
+            auto LJ = L_begin;
+            for (It J = first; J != I; ++J, ++LJ) {
+                if (*J < *I && LJ->size() > LI->size()) {
+                    *LI = *LJ;
+                }
+            }
+            LI->push_back(*I);
+        }
+
+        tmp_storage_iterator<It> max = std::max_element(
+                L_begin, L.end(),
+                [](const std::vector<vt<It>> &x, const std::vector<vt<It>> &y){
+                    return y.size() > x.size();
+                });
+        result = *max;
+    }
+    return result;
+}
+
+template<typename It>
 void print_container(It first, It last, bool end_line = true) {
     std::cout << '[' << ' ';
     for (; first != last; ++first) {
