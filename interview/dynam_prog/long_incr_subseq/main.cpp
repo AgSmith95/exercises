@@ -16,5 +16,8 @@ int main() {
     print_container(res_dynam.begin(), res_dynam.end());
 
     std::cout << lis_nlogn_num(vi.begin(), vi.end()) << '\n';
+    auto res_nlogn = lis_nlogn(vi.begin(), vi.end());
+    std::cout << res_dynam.size() << ": ";
+    print_container(res_dynam.begin(), res_dynam.end());
     return 0;
 }
