@@ -9,10 +9,12 @@ int main() {
     std::cout << res.size() << ": ";
     print_container(res.begin(), res.end());
 
-    std::cout << longest_increasing_subsequence_num(vi.begin(), vi.end()) << "\n";
+    std::cout << longest_increasing_subsequence_num(vi.begin(), vi.end()) << '\n';
 
     auto res_dynam = longest_increasing_subsequence_dynamic(vi.begin(), vi.end());
     std::cout << res_dynam.size() << ": ";
     print_container(res_dynam.begin(), res_dynam.end());
+
+    std::cout << lis_nlogn_num(vi.begin(), vi.end()) << '\n';
     return 0;
 }
