@@ -95,6 +95,46 @@ std::vector<vt<It>> longest_increasing_subsequence_dynamic(It first, It last) {
 }
 
 template<typename It>
+unsigned long long lis_nlogn_num(It first, It last) {
+    unsigned long long result;
+    if (first == last) result = 0;
+    else {
+        std::vector<vt<It>> s;
+        for (It I = first; I != last; ++I) {
+            auto place = std::lower_bound(s.begin(), s.end(), *I);
+            if (place == s.end()) {
+                s.push_back(*I);
+            }
+            else {
+                *place = *I;
+            }
+        }
+
+        result = s.size();
+    }
+    return result;
+}
+
+template<typename It>
+std::vector<vt<It>> lis_nlogn(It first, It last) {
+    std::vector<vt<It>> result{};
+    if (first != last) {
+        std::vector<vt<It>> s;
+        for (It I = first; I != last; ++I) {
+            auto place = std::lower_bound(s.begin(), s.end(), *I);
+            if (place == s.end()) {
+                s.push_back(*I);
+                result.push_back(*I);
+            }
+            else {
+                *place = *I;
+            }
+        }
+    }
+    return result;
+}
+
+template<typename It>
 void print_container(It first, It last, bool end_line = true) {
     std::cout << '[' << ' ';
     for (; first != last; ++first) {
