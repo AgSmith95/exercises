@@ -1,19 +1,18 @@
 #include <iostream>
 #include <vector>
 #include <cstdlib>
-#include <unordered_map>
+#include <cstdint>
 
-static const unsigned long long CACHE_SIZE = 1048576; // 2^20
+using lookup_table = std::vector<uint64_t>;
 
-using lookup_table = std::vector<unsigned long long>;
-
-unsigned long long collatz(unsigned long long N, lookup_table &lookup) {
-    unsigned long long result = 0;
-    unsigned long long n = N;
+uint64_t collatz(uint64_t N, lookup_table &lookup) {
+    uint64_t result = 0;
+    uint64_t n = N;
     size_t cache_size = lookup.size();
     while (n != 1) {
-        if (n < cache_size && lookup[n] != 0) {
-            result += lookup[n];
+        uint64_t search = n < cache_size ? lookup[n] : 0;
+        if (search != 0) {
+            result += search;
             break;
         }
         else {
@@ -32,13 +31,14 @@ unsigned long long collatz(unsigned long long N, lookup_table &lookup) {
     return result;
 }
 
-unsigned long long longest_collatz_uptoN(unsigned long long n, lookup_table &lookup) {
-    unsigned long long index = 0;
-    unsigned long long max = 0;
-    unsigned long long current;
+uint64_t longest_collatz_uptoN(uint64_t n, lookup_table &lookup) {
+    uint64_t index = 0;
+    uint64_t max = 0;
+    uint64_t current;
     for (; n > 1; --n) {
-        if (lookup[n] != 0) {
-            current = lookup[n];
+        uint64_t search = lookup[n];
+        if (search != 0) {
+            current = search;
         }
         else {
             current = collatz(n, lookup);
