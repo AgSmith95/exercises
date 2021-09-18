@@ -2,7 +2,11 @@ cmake_minimum_required(VERSION 3.10)
 project(longest_increasing_subsequence)
 set(CMAKE_CXX_STANDARD 17)
 
-set(SOURCE_FILES main.cpp longest_increasing_subsequence.hpp)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  add_definitions(-DDEBUG="1")
+endif()
+
+set(SOURCE_FILES main.cpp longest_increasing_subsequence.hpp test.hpp)
 set(EXECUTABLE longest_increasing_subsequence)
 add_executable(${EXECUTABLE} ${SOURCE_FILES})
 
