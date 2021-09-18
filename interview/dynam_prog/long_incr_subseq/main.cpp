@@ -5,8 +5,10 @@
 #include "test.hpp"
 
 int main() {
-//    std::vector<int> vi = {0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15};
-    std::vector<int> vi = {1, 2, 5, 3, 4};
+    std::vector<int> vi = {0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15};
+//    std::vector<int> vi = {2, 6, 3, 4, 1, 2, 9, 5, 8};
+//    std::vector<int> vi = {1, 2, 5, 3, 4};
+//    std::vector<int> vi = {1, 2, 4, 5, 3};
     auto res = longest_increasing_subsequence(vi.begin(), vi.end());
     std::cout << res.size() << ": ";
     print_container(res.begin(), res.end());
@@ -22,6 +24,6 @@ int main() {
     std::cout << res_nlogn.size() << ": ";
     print_container(res_nlogn.begin(), res_nlogn.end());
 
-    test_nlogn();
+    //test_nlogn();
     return 0;
 }

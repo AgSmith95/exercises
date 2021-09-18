@@ -117,7 +117,7 @@ std::vector<vt<It>> lis_nlogn(It first, It last) {
             }
             else {
                 *place = *I;
-                *(std::lower_bound(result.begin(), result.end(), *I)) = *I;
+                result.back() = s.back();
             }
         }
     }
