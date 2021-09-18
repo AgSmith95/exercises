@@ -3,6 +3,7 @@
 #include <vector>
 #include <iterator>
 #include <limits>
+#include <cstdint>
 #include <algorithm>
 #include <iostream>
 
@@ -30,9 +31,9 @@ std::vector<vt<It>> longest_increasing_subsequence(It first, It last, vt<It> pre
 }
 
 template<typename It>
-unsigned long long longest_increasing_subsequence_num(It first, It last) {
+uint64_t longest_increasing_subsequence_num(It first, It last) {
     if (first != last) {
-        std::vector<unsigned long long> L(std::distance(first, last));
+        std::vector<uint64_t> L(std::distance(first, last));
         auto L_begin = L.begin();
         *L_begin = 1;
 
@@ -85,7 +86,7 @@ std::vector<vt<It>> longest_increasing_subsequence_dynamic(It first, It last) {
 }
 
 template<typename It>
-unsigned long long lis_nlogn_num(It first, It last) {
+uint64_t lis_nlogn_num(It first, It last) {
     if (first != last) {
         std::vector<vt<It>> s;
         for (It I = first; I != last; ++I) {
@@ -116,6 +117,7 @@ std::vector<vt<It>> lis_nlogn(It first, It last) {
             }
             else {
                 *place = *I;
+                *(std::lower_bound(result.begin(), result.end(), *I)) = *I;
             }
         }
     }
