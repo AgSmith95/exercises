@@ -13,14 +13,12 @@ template<typename It>
 std::vector<vt<It>> longest_increasing_subsequence(It first, It last, vt<It> prev = std::numeric_limits<vt<It>>::min()) {
     if (first == last) return {};
     else if (prev < *first) {
-        std::vector<vt<It>> result{};
         vt<It> current = *first;
         std::vector<vt<It>> included = std::move(longest_increasing_subsequence(std::next(first), last, current));
         std::vector<vt<It>> excluded = std::move(longest_increasing_subsequence(std::next(first), last, prev));
         if (1 + included.size() > excluded.size()) {
-            result.push_back(current);
-            std::move(included.begin(), included.end(), std::back_inserter(result));
-            return result;
+            included.insert(included.begin(), *first);
+            return included;
         }
         else {
             return excluded;
