@@ -104,39 +104,30 @@ uint64_t lis_nlogn_num(It first, It last) {
     return 0;
 }
 
-template <typename T, typename It>
-struct Node {
-    T value;
-    It index;
-
-    friend bool operator<(const Node &node, const T &val) {
-        return node.value < val;
-    }
-};
-
 template<typename It>
 std::vector<vt<It>> lis_nlogn(It first, It last) {
     if (first != last) {
-        std::vector< Node<vt<It>, It> > s; // tmp array for Nodes: {value, index}
+        std::vector<It> s; // tmp array for Nodes: {value, index}
         std::vector<It> indices(std::distance(first, last), last); // tmp array for parents
         for (It I = first; I != last; ++I) {
             // find "parent"
-            auto place = std::lower_bound(s.begin(), s.end(), *I);
+            auto place = std::lower_bound(s.begin(), s.end(), *I,
+                                          [](const It &i, const vt<It> &val){ return *i < val; });
             // insert parent
-            if (place > s.begin()) indices[I - first] = std::prev(place)->index;
+            if (place > s.begin()) indices[I - first] = *std::prev(place);
             // modify tmp array for Nodes
             if (place == s.end()) { // need to append new element
-                s.push_back({*I, I});
+                s.push_back(I);
             }
             else { // need to change previous element
-                *place = {*I, I};
+                *place = I;
             }
         }
         // form result from the parent indices
-        // s.back().index points to the element in the input
         std::vector<vt<It>> result;
         result.reserve(s.size());
-        for (It curr = s.back().index; curr != last;) {
+        // s.back() points to the element in the input
+        for (It curr = s.back(); curr != last;) {
             result.push_back(*curr);
             // curr is an iterator from the input
             curr = indices[curr - first];
