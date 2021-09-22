@@ -35,7 +35,8 @@ uint64_t longest_collatz_uptoN(uint64_t n, lookup_table &lookup) {
     uint64_t index = 0;
     uint64_t max = 0;
     uint64_t current;
-    for (; n > 1; --n) {
+    uint64_t stop = n;
+    for (n = 1; n < stop; ++n) {
         uint64_t search = lookup[n];
         if (search != 0) {
             current = search;
