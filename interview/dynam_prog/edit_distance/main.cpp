@@ -20,9 +20,20 @@ int main() {
     std::vector<char> Y = {'B','D','F'};
     std::cout << edit_distance_recursive(X.begin(), X.end(), Y.begin(), Y.end()) << "\n"; // 2
     std::cout << edit_distance_recursive(Y.begin(), Y.end(), X.begin(), X.end()) << "\n"; // 2
+    std::cout << edit_distance_matrix(X.begin(), X.end(), Y.begin(), Y.end()) << "\n"; // 2
+    std::cout << edit_distance_matrix(Y.begin(), Y.end(), X.begin(), X.end()) << "\n"; // 2
 
-    test_recursive("hello", "low"); // 4 4
+    std::cout << "\n\n";
+
+    test_recursive("hello", "");     // 5 5
+    test_recursive("hello", "low");  // 4 4
     test_recursive("hello", "holy"); // 3 3
+
+    std::cout << "\n\n";
+
+    test_matrix("hello", ""); // 5 5
+    test_matrix("hello", "low"); // 4 4
+    test_matrix("hello", "holy"); // 3 3
 
     return 0;
 }
