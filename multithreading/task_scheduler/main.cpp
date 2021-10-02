@@ -1,17 +1,11 @@
-#include <iostream>
-
-//#include <thread>
-//#include <mutex>
-//#include <condition_variable>
-//#include <chrono>
-//#include <queue>
-//using namespace std::chrono;
-//using namespace std::literals::chrono_literals;
-
-#include <cassert>
-
 #include "scheduler.hpp"
-#include "task.hpp"
+
+#include <iostream>
+#include <cassert>
+#include <chrono>
+
+using namespace std::chrono;
+using namespace std::literals::chrono_literals;
 
 
 void hello(void *then) {
