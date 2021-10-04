@@ -12,9 +12,46 @@
 #include <queue>
 #include <map>
 #include <algorithm>
+#include <string>
+#include <sstream>
+#include <iomanip>
+#include <ctime>
 
 using lock_t = std::unique_lock<std::mutex>;
 using timestamp = std::chrono::time_point<std::chrono::steady_clock>;
+
+// ===== LOGGING =====
+
+std::string getCurrentTimestamp() {
+    const auto current_time_point = std::chrono::system_clock::now();
+    const auto current_time{std::chrono::system_clock::to_time_t(current_time_point)};
+    const auto current_localtime{*std::localtime(&current_time)};
+    const auto current_time_since_epoch {current_time_point.time_since_epoch()};
+    const auto current_milliseconds {std::chrono::duration_cast<std::chrono::milliseconds>(current_time_since_epoch).count() % 1000};
+
+    std::ostringstream stream;
+    stream << std::put_time(&current_localtime, "%T") << "." << std::setw(3) << std::setfill ('0') << current_milliseconds;
+    return stream.str();
+}
+
+void printAll() {
+    std::cout << std::endl; //;'\n';
+}
+template <typename T, typename... Args>
+void printAll(const T& t, Args... args) {
+    std::cout << t << ' ';
+    printAll(args...);
+}
+template <typename T, typename... Args>
+void log(const T &/*message*/, Args... /*args*/) {} // stub
+//void log(const T &message, Args... args) { // real
+//    std::cout   //<< getCurrentTimestamp() /*std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()) */
+//                //<< ' '
+//                << message << ' ';
+//    printAll(args...);
+//}
+
+// ===== LOGGING =====
 
 
 struct TaskID {
@@ -27,32 +64,26 @@ public:
     bool pop(Task &task) {
         lock_t lk(_mutex);
 
-        while (_tasks.empty() && !_done) _ready.wait(lk);
-        if (_tasks.empty()) return false;
-
-        auto front = _tasks.begin();
-        while (front->first > std::chrono::steady_clock::now()) {
-            _ready.wait_until(lk, front->first, [&]() {
-                auto new_front = _tasks.begin();
-                if (new_front == _tasks.end()) {
-                    return false;
+        while (!_done || _finish_queue) {
+            if (!_tasks.empty()) {
+                auto front = _tasks.begin();
+                if (front->first >= std::chrono::steady_clock::now()) { // TASK NOT READY
+                    _ready.wait_until(lk, front->first);
                 }
-                if (new_front->first < front->first) {
-                    front = new_front;
-                    return false;
+                else { // TASK READY
+                    std::swap(task, front->second);
+                    _tasks.erase(front);
+                    return true;
                 }
-                return true;
-            });
-            if (_tasks.empty()) {
-                _ready.wait(lk, [&]() { return _tasks.empty(); });
-                front = _tasks.begin();
+            }
+            else { // NO TASKS IN "QUEUE"
+                _ready.wait(lk, [&](){ return _done; });
+                if (_finish_queue && _done && _tasks.empty()) {
+                    _finish_queue = false;
+                }
             }
         }
-
-        task = std::move(front->second);
-        _tasks.erase(front);
-
-        return true;
+        return false;
     }
 
     TaskID push(callback cb, void *args, unsigned millis) {
@@ -81,18 +112,25 @@ public:
                 ++it;
             }
         }
+        if (result) {
+            _ready.notify_one();
+        }
         return result;
     }
 
     void done() {
-        lock_t lock{_mutex};
-        _done = true;
+        {
+            lock_t lock{_mutex};
+            _done = true;
+        }
+        _ready.notify_one();
     }
 private:
     std::multimap<timestamp, Task> _tasks;
     std::mutex _mutex;
     std::condition_variable _ready;
     bool _done{false};
+    bool _finish_queue{true};
 };
 
 class Scheduler {
