@@ -9,7 +9,6 @@
 #include <atomic>
 #include <chrono>
 #include <map>
-#include <algorithm>
 
 using lock_t = std::unique_lock<std::mutex>;
 using timestamp = std::chrono::time_point<std::chrono::steady_clock>;
