@@ -3,56 +3,16 @@
 
 #include "task.hpp"
 
-#include <iostream>
 #include <thread>
 #include <mutex>
 #include <condition_variable>
 #include <atomic>
 #include <chrono>
-#include <queue>
 #include <map>
 #include <algorithm>
-#include <string>
-#include <sstream>
-#include <iomanip>
-#include <ctime>
 
 using lock_t = std::unique_lock<std::mutex>;
 using timestamp = std::chrono::time_point<std::chrono::steady_clock>;
-
-// ===== LOGGING =====
-
-std::string getCurrentTimestamp() {
-    const auto current_time_point = std::chrono::system_clock::now();
-    const auto current_time{std::chrono::system_clock::to_time_t(current_time_point)};
-    const auto current_localtime{*std::localtime(&current_time)};
-    const auto current_time_since_epoch {current_time_point.time_since_epoch()};
-    const auto current_milliseconds {std::chrono::duration_cast<std::chrono::milliseconds>(current_time_since_epoch).count() % 1000};
-
-    std::ostringstream stream;
-    stream << std::put_time(&current_localtime, "%T") << "." << std::setw(3) << std::setfill ('0') << current_milliseconds;
-    return stream.str();
-}
-
-void printAll() {
-    std::cout << std::endl; //;'\n';
-}
-template <typename T, typename... Args>
-void printAll(const T& t, Args... args) {
-    std::cout << t << ' ';
-    printAll(args...);
-}
-template <typename T, typename... Args>
-void log(const T &/*message*/, Args... /*args*/) {} // stub
-//void log(const T &message, Args... args) { // real
-//    std::cout   //<< getCurrentTimestamp() /*std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()) */
-//                //<< ' '
-//                << message << ' ';
-//    printAll(args...);
-//}
-
-// ===== LOGGING =====
-
 
 struct TaskID {
     timestamp tp;
