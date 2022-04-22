@@ -37,7 +37,7 @@ size_t edit_distance_matrix(It x_first, It x_last, It y_first, It y_last) {
     if (n == 0) return m;
     if (m == 0) return n;
 
-    std::vector<std::vector<size_t>> d{n, std::vector<size_t>{m, 0}};
+    std::vector<std::vector<size_t>> d(n, std::vector<size_t>(m, 0));
 
     for (size_t i = 1; i < n; ++i) d[i][0] = i;
     for (size_t j = 1; j < m; ++j) d[0][j] = j;
