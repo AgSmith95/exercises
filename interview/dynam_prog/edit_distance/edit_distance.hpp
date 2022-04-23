@@ -38,6 +38,7 @@ size_t edit_distance_matrix(It x_first, It x_last, It y_first, It y_last) {
     if (n == 0) return m;
     if (m == 0) return n;
 
+    ++n; ++m;
     std::vector<std::vector<size_t>> d(n, std::vector<size_t>(m, 0));
 
     for (size_t i = 1; i < n; ++i) d[i][0] = i;
@@ -47,7 +48,7 @@ size_t edit_distance_matrix(It x_first, It x_last, It y_first, It y_last) {
         for (size_t i = 1; i < n; ++i) {
             size_t deletion     = d[i-1][j] + 1;
             size_t insertion    = d[i][j-1] + 1;
-            size_t substitution = d[i-1][j-1] + static_cast<size_t>(*std::next(x_first, i) != *std::next(y_first, j));
+            size_t substitution = d[i-1][j-1] + static_cast<size_t>(*std::next(x_first, i - 1) != *std::next(y_first, j - 1));
 
             d[i][j] = std::min(std::min(deletion, insertion), substitution);
         }

@@ -33,6 +33,9 @@ int main() {
     test_matrix("hello", ""); // 5 5
     test_matrix("hello", "low"); // 4 4
     test_matrix("hello", "holy"); // 3 3
+    test_matrix("intention", "execution"); // 5 5
+    test_matrix("kitten", "sitting"); // 3 3
+    test_matrix("abc", "ef"); // 3 3
 
     std::cout << "\n\n";
     std::cout << edit_distance_two_rows(X.begin(), X.end(), Y.begin(), Y.end()) << "\n"; // 2
