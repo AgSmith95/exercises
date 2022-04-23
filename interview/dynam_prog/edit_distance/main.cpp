@@ -19,34 +19,49 @@ int main() {
     std::vector<char> X = {'B','C','D','E'};
     std::vector<char> Y = {'B','D','F'};
 
-    std::cout << edit_distance_recursive(X.begin(), X.end(), Y.begin(), Y.end()) << "\n"; // 2
-    std::cout << edit_distance_recursive(Y.begin(), Y.end(), X.begin(), X.end()) << "\n"; // 2
-    std::cout << edit_distance_matrix(X.begin(), X.end(), Y.begin(), Y.end()) << "\n"; // 2
-    std::cout << edit_distance_matrix(Y.begin(), Y.end(), X.begin(), X.end()) << "\n"; // 2
-    std::cout << edit_distance_two_rows(X.begin(), X.end(), Y.begin(), Y.end()) << "\n"; // 2
-    std::cout << edit_distance_two_rows(Y.begin(), Y.end(), X.begin(), X.end()) << "\n"; // 2
-    std::cout << edit_distance_one_row(X.begin(), X.end(), Y.begin(), Y.end()) << "\n"; // 2
-    std::cout << edit_distance_one_row(Y.begin(), Y.end(), X.begin(), X.end()) << "\n"; // 2
+    std::cout << "Recursive 'BCDE'-'BDF'-'BCDE': ";
+    std::cout << edit_distance_recursive(X.begin(), X.end(), Y.begin(), Y.end()) <<  ' '; // 0 1 2
+    std::cout << edit_distance_recursive(Y.begin(), Y.end(), X.begin(), X.end()) << '\n'; // 1 0 2
+    test_edit_distance("hello", "", edit_distance_recursive<std::string::const_iterator>, 0, 5, 0);
+    test_edit_distance("hello", "low", edit_distance_recursive<std::string::const_iterator>, 3, 1, 0);
+    test_edit_distance("hello", "holy", edit_distance_recursive<std::string::const_iterator>, 2, 0, 1);
+    test_edit_distance("kitten", "sitting", edit_distance_recursive<std::string::const_iterator>, 0, 1, 2);
+    test_edit_distance("intention", "execution", edit_distance_recursive<std::string::const_iterator>, 0, 0, 5);
+    test_edit_distance("abc", "ef", edit_distance_recursive<std::string::const_iterator>, 0, 1, 2);
 
-    std::cout << "\n\n";
-    test_recursive("hello", "");     // 5 5
-    test_recursive("hello", "low");  // 4 4
-    test_recursive("hello", "holy"); // 3 3
 
-    std::cout << "\n\n";
-    test_matrix("hello", ""); // 5 5
-    test_matrix("hello", "low"); // 4 4
-    test_matrix("hello", "holy"); // 3 3
+    std::cout << "\n";
+    std::cout << "Matrix 'BCDE'-'BDF'-'BCDE': ";
+    std::cout << edit_distance_matrix(X.begin(), X.end(), Y.begin(), Y.end()) <<  ' '; // 0 1 2
+    std::cout << edit_distance_matrix(Y.begin(), Y.end(), X.begin(), X.end()) << '\n'; // 1 0 2
+    test_edit_distance("hello", "", edit_distance_matrix<std::string::const_iterator>, 0, 5, 0);
+    test_edit_distance("hello", "low", edit_distance_matrix<std::string::const_iterator>, 3, 1, 0);
+    test_edit_distance("hello", "holy", edit_distance_matrix<std::string::const_iterator>, 2, 0, 1);
+    test_edit_distance("kitten", "sitting", edit_distance_matrix<std::string::const_iterator>, 0, 1, 2);
+    test_edit_distance("intention", "execution", edit_distance_matrix<std::string::const_iterator>, 0, 0, 5);
+    test_edit_distance("abc", "ef", edit_distance_matrix<std::string::const_iterator>, 0, 1, 2);
 
-    std::cout << "\n\n";
-    test_rows("hello", ""); // 5 5
-    test_rows("hello", "low"); // 4 4
-    test_rows("hello", "holy"); // 3 3
+    std::cout << "\n";
+    std::cout << "2Rows 'BCDE'-'BDF'-'BCDE': ";
+    std::cout << edit_distance_two_rows(X.begin(), X.end(), Y.begin(), Y.end()) <<  ' '; // 0 1 2
+    std::cout << edit_distance_two_rows(Y.begin(), Y.end(), X.begin(), X.end()) << '\n'; // 1 0 2
+    test_edit_distance("hello", "", edit_distance_two_rows<std::string::const_iterator>, 0, 5, 0);
+    test_edit_distance("hello", "low", edit_distance_two_rows<std::string::const_iterator>, 3, 1, 0);
+    test_edit_distance("hello", "holy", edit_distance_two_rows<std::string::const_iterator>, 2, 0, 1);
+    test_edit_distance("kitten", "sitting", edit_distance_two_rows<std::string::const_iterator>, 0, 1, 2);
+    test_edit_distance("intention", "execution", edit_distance_two_rows<std::string::const_iterator>, 0, 0, 5);
+    test_edit_distance("abc", "ef", edit_distance_two_rows<std::string::const_iterator>, 0, 1, 2);
 
-    std::cout << "\n\n";
-    test_row("hello", ""); // 5 5
-    test_row("hello", "low"); // 4 4
-    test_row("hello", "holy"); // 3 3
+    std::cout << "\n";
+    std::cout << "1Row 'BCDE'-'BDF'-'BCDE': ";
+    std::cout << edit_distance_one_row(X.begin(), X.end(), Y.begin(), Y.end()) <<  ' '; // 0 1 2
+    std::cout << edit_distance_one_row(Y.begin(), Y.end(), X.begin(), X.end()) << '\n'; // 1 0 2
+    test_edit_distance("hello", "", edit_distance_one_row<std::string::const_iterator>, 0, 5, 0);
+    test_edit_distance("hello", "low", edit_distance_one_row<std::string::const_iterator>, 3, 1, 0);
+    test_edit_distance("hello", "holy", edit_distance_one_row<std::string::const_iterator>, 2, 0, 1);
+    test_edit_distance("kitten", "sitting", edit_distance_one_row<std::string::const_iterator>, 0, 1, 2);
+    test_edit_distance("intention", "execution", edit_distance_one_row<std::string::const_iterator>, 0, 0, 5);
+    test_edit_distance("abc", "ef", edit_distance_one_row<std::string::const_iterator>, 0, 1, 2);
 
     return 0;
 }

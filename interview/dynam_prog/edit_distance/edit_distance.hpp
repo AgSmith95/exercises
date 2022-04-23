@@ -5,6 +5,10 @@
 #include <vector>
 #include <numeric>
 
+#define DELETION_COST 1
+#define INSERTION_COST 1
+#define SUBSTITUTION_COST 1
+
 template<typename It>
 using vt = typename std::iterator_traits<It>::value_type;
 
@@ -20,13 +24,13 @@ template<typename It> // It - ForwardIterator
 size_t edit_distance_recursive(It x_first, It x_last, It y_first, It y_last) {
     if (x_first == x_last) return std::distance(y_first, y_last);
     else if (y_first == y_last) return std::distance(x_first, x_last);
-    else if (*x_first == *y_first) return edit_distance_recursive(std::next(x_first), x_last, std::next(y_first), y_last);
     else {
-        size_t tail_x = edit_distance_recursive(std::next(x_first), x_last, y_first, y_last);
-        size_t tail_y = edit_distance_recursive(x_first, x_last, std::next(y_first), y_last);
-        size_t tail = edit_distance_recursive(std::next(x_first), x_last, std::next(y_first), y_last);
+        size_t deletion = edit_distance_recursive(std::next(x_first), x_last, y_first, y_last) + DELETION_COST;
+        size_t insertion = edit_distance_recursive(x_first, x_last, std::next(y_first), y_last) + INSERTION_COST;
+        size_t substitution = edit_distance_recursive(std::next(x_first), x_last, std::next(y_first), y_last) +
+            SUBSTITUTION_COST * static_cast<size_t>(*x_first != *y_first);
 
-        return 1 + std::min(std::min(tail_x, tail_y), tail);
+        return std::min(std::min(deletion, insertion), substitution);
     }
 }
 
@@ -38,6 +42,7 @@ size_t edit_distance_matrix(It x_first, It x_last, It y_first, It y_last) {
     if (n == 0) return m;
     if (m == 0) return n;
 
+    ++n; ++m;
     std::vector<std::vector<size_t>> d(n, std::vector<size_t>(m, 0));
 
     for (size_t i = 1; i < n; ++i) d[i][0] = i;
@@ -45,9 +50,10 @@ size_t edit_distance_matrix(It x_first, It x_last, It y_first, It y_last) {
 
     for (size_t j = 1; j < m; ++j) {
         for (size_t i = 1; i < n; ++i) {
-            size_t deletion     = d[i-1][j] + 1;
-            size_t insertion    = d[i][j-1] + 1;
-            size_t substitution = d[i-1][j-1] + static_cast<size_t>(*std::next(x_first, i) != *std::next(y_first, j));
+            size_t deletion     = d[i-1][j] + INSERTION_COST;
+            size_t insertion    = d[i][j-1] + DELETION_COST;
+            size_t substitution = d[i-1][j-1] + SUBSTITUTION_COST *
+                static_cast<size_t>(*std::next(x_first, i - 1) != *std::next(y_first, j - 1));
 
             d[i][j] = std::min(std::min(deletion, insertion), substitution);
         }
@@ -71,9 +77,9 @@ size_t edit_distance_two_rows(It x_first, It x_last, It y_first, It y_last) {
     for (size_t i = 0; i < n; ++i) {
         curr[0] = i + 1;
         for (size_t j = 0; j < m; ++j) {
-            size_t deletion     = prev[j + 1] + 1;
-            size_t insertion    = curr[j] + 1;
-            size_t substitution = prev[j] +
+            size_t deletion     = prev[j + 1] + DELETION_COST;
+            size_t insertion    = curr[j] + INSERTION_COST;
+            size_t substitution = prev[j] + SUBSTITUTION_COST *
                 static_cast<size_t>(*std::next(x_first, i) != *std::next(y_first, j));
 
             curr[j + 1] = std::min(std::min(deletion, insertion), substitution);
@@ -102,9 +108,9 @@ size_t edit_distance_one_row(It x_first, It x_last, It y_first, It y_last) {
             size_t previousDiagonal = previousAbove;
             previousAbove = row[j+1];
 
-            size_t deletion     = previousAbove + 1;
-            size_t insertion    = row[j] + 1;
-            size_t substitution = previousDiagonal +
+            size_t deletion     = previousAbove + DELETION_COST;
+            size_t insertion    = row[j] + INSERTION_COST;
+            size_t substitution = previousDiagonal + SUBSTITUTION_COST *
                 static_cast<size_t>(*std::next(x_first, i) != *std::next(y_first, j));
 
             row[j + 1] = std::min(std::min(deletion, insertion), substitution);
