@@ -18,22 +18,35 @@
 int main() {
     std::vector<char> X = {'B','C','D','E'};
     std::vector<char> Y = {'B','D','F'};
+
     std::cout << edit_distance_recursive(X.begin(), X.end(), Y.begin(), Y.end()) << "\n"; // 2
     std::cout << edit_distance_recursive(Y.begin(), Y.end(), X.begin(), X.end()) << "\n"; // 2
     std::cout << edit_distance_matrix(X.begin(), X.end(), Y.begin(), Y.end()) << "\n"; // 2
     std::cout << edit_distance_matrix(Y.begin(), Y.end(), X.begin(), X.end()) << "\n"; // 2
+    std::cout << edit_distance_two_rows(X.begin(), X.end(), Y.begin(), Y.end()) << "\n"; // 2
+    std::cout << edit_distance_two_rows(Y.begin(), Y.end(), X.begin(), X.end()) << "\n"; // 2
+    std::cout << edit_distance_one_row(X.begin(), X.end(), Y.begin(), Y.end()) << "\n"; // 2
+    std::cout << edit_distance_one_row(Y.begin(), Y.end(), X.begin(), X.end()) << "\n"; // 2
 
     std::cout << "\n\n";
-
     test_recursive("hello", "");     // 5 5
     test_recursive("hello", "low");  // 4 4
     test_recursive("hello", "holy"); // 3 3
 
     std::cout << "\n\n";
-
     test_matrix("hello", ""); // 5 5
     test_matrix("hello", "low"); // 4 4
     test_matrix("hello", "holy"); // 3 3
+
+    std::cout << "\n\n";
+    test_rows("hello", ""); // 5 5
+    test_rows("hello", "low"); // 4 4
+    test_rows("hello", "holy"); // 3 3
+
+    std::cout << "\n\n";
+    test_row("hello", ""); // 5 5
+    test_row("hello", "low"); // 4 4
+    test_row("hello", "holy"); // 3 3
 
     return 0;
 }
