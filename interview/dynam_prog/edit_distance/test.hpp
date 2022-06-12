@@ -35,7 +35,7 @@ void test_row(const std::string &x, const std::string &y) {
 }
 
 template<typename It>
-void test_edit_distance(const std::string &x, const std::string &y,
+bool test_edit_distance(const std::string &x, const std::string &y,
     size_t(method)(It, It, It, It), // method of solving
     size_t dels, size_t inserts, size_t substs)
 {
@@ -50,4 +50,6 @@ void test_edit_distance(const std::string &x, const std::string &y,
                             SUBSTITUTION_COST * substs;
     size_t result_reversed = method(y.begin(), y.end(), x.begin(), x.end());
     assert(result_reversed == expected_res_r);
+	// to not fail on release builds
+    return (expected_res == result) && (expected_res_r == result_reversed);
 }
