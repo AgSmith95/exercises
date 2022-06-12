@@ -1,0 +1,4 @@
+add_subdirectory(edit_distance)
+add_subdirectory(long_incr_subseq)
+add_subdirectory(long_subseq)
+add_subdirectory(short_superseq)

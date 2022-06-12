@@ -1,7 +1,3 @@
-cmake_minimum_required(VERSION 3.10)
-project(type_casts)
-set(CMAKE_CXX_STANDARD 17)
-
 set(SOURCE_FILES main.cpp type_name.hpp)
 set(EXECUTABLE type_casts)
 add_executable(${EXECUTABLE} ${SOURCE_FILES})

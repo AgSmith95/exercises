@@ -1,6 +1,11 @@
 set(SOURCE_FILES map.cpp)
-set(EXECUTABLE basics)
+set(EXECUTABLE map_basics)
 add_executable(${EXECUTABLE} ${SOURCE_FILES})
+
+set_target_properties(${EXECUTABLE} PROPERTIES
+	CXX_STANDARD 17
+	CXX_STANDARD_REQUIRED ON
+)
 
 if(MSVC)
     target_compile_options(${EXECUTABLE} PRIVATE /W4 /WX)
