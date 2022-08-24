@@ -52,7 +52,15 @@ if(BUILD_INTERVIEW_INHERITANCE)
 	add_subdirectory(inheritance)
 endif()
 
-# add_subdirectory(iterators)
+option(
+	BUILD_INTERVIEW_ITERATORS
+	"Build interview/iterators"
+	OFF
+)
+if(BUILD_INTERVIEW_ITERATORS)
+	add_subdirectory(iterators)
+endif()
+
 # add_subdirectory(lambdas)
 # add_subdirectory(linux)
 # add_subdirectory(memory)
