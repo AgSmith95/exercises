@@ -3,7 +3,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 endif()
 
 set(SOURCE_FILES main.cpp longest_increasing_subsequence.hpp test.hpp)
-set(EXECUTABLE longest_increasing_subsequence)
+set(EXECUTABLE dynam_prog_longest_increasing_subsequence)
 add_executable(${EXECUTABLE} ${SOURCE_FILES})
 
 set_target_properties(${EXECUTABLE} PROPERTIES
@@ -12,7 +12,7 @@ set_target_properties(${EXECUTABLE} PROPERTIES
 )
 
 if(MSVC)
-  target_compile_options(${EXECUTABLE} PRIVATE /W4 /WX)
+	target_compile_options(${EXECUTABLE} PRIVATE /W4 /WX)
 else()
-  target_compile_options(${EXECUTABLE} PRIVATE -Wall -Wextra -pedantic -Werror)
+	target_compile_options(${EXECUTABLE} PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
