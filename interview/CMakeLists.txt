@@ -70,7 +70,15 @@ if(BUILD_INTERVIEW_LAMBDAS)
 	add_subdirectory(lambdas)
 endif()
 
-# add_subdirectory(linux)
+option(
+	BUILD_INTERVIEW_LINUX
+	"Build interview/linux"
+	OFF
+)
+if(BUILD_INTERVIEW_LINUX)
+	add_subdirectory(linux)
+endif()
+
 # add_subdirectory(memory)
 # add_subdirectory(misc)
 # add_subdirectory(pointers)
