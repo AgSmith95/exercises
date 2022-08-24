@@ -25,12 +25,60 @@ if(BUILD_INTERVIEW_DYNAM_PROG)
 	add_subdirectory(dynam_prog)
 endif()
 
-# add_subdirectory(exceptions)
-# add_subdirectory(functions)
-# add_subdirectory(inheritance)
-# add_subdirectory(iterators)
-# add_subdirectory(lambdas)
-# add_subdirectory(linux)
+option(
+	BUILD_INTERVIEW_EXCEPTIONS
+	"Build interview/exceptions"
+	OFF
+)
+if(BUILD_INTERVIEW_EXCEPTIONS)
+	add_subdirectory(exceptions)
+endif()
+
+option(
+	BUILD_INTERVIEW_FUNCTIONS
+	"Build interview/functions"
+	OFF
+)
+if(BUILD_INTERVIEW_FUNCTIONS)
+	add_subdirectory(functions)
+endif()
+
+option(
+	BUILD_INTERVIEW_INHERITANCE
+	"Build interview/inheritance"
+	OFF
+)
+if(BUILD_INTERVIEW_INHERITANCE)
+	add_subdirectory(inheritance)
+endif()
+
+option(
+	BUILD_INTERVIEW_ITERATORS
+	"Build interview/iterators"
+	OFF
+)
+if(BUILD_INTERVIEW_ITERATORS)
+	add_subdirectory(iterators)
+endif()
+
+option(
+	BUILD_INTERVIEW_LAMBDAS
+	"Build interview/lambdas"
+	OFF
+)
+if(BUILD_INTERVIEW_LAMBDAS)
+	add_subdirectory(lambdas)
+endif()
+
+option(
+	BUILD_INTERVIEW_LINUX
+	"Build interview/linux"
+	OFF
+)
+if(BUILD_INTERVIEW_LINUX)
+	add_subdirectory(linux)
+endif()
+
 # add_subdirectory(memory)
 # add_subdirectory(misc)
 # add_subdirectory(pointers)
