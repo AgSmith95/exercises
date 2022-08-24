@@ -1,0 +1,4 @@
+add_subdirectory(func_pointer)
+add_subdirectory(inline_basics)
+add_subdirectory(sizeof_array)
+add_subdirectory(std_function)
