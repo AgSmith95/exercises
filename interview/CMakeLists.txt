@@ -61,7 +61,15 @@ if(BUILD_INTERVIEW_ITERATORS)
 	add_subdirectory(iterators)
 endif()
 
-# add_subdirectory(lambdas)
+option(
+	BUILD_INTERVIEW_LAMBDAS
+	"Build interview/lambdas"
+	OFF
+)
+if(BUILD_INTERVIEW_LAMBDAS)
+	add_subdirectory(lambdas)
+endif()
+
 # add_subdirectory(linux)
 # add_subdirectory(memory)
 # add_subdirectory(misc)
