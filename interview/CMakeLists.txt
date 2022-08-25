@@ -79,7 +79,15 @@ if(BUILD_INTERVIEW_LINUX)
 	add_subdirectory(linux)
 endif()
 
-# add_subdirectory(memory)
+option(
+	BUILD_INTERVIEW_MEMORY
+	"Build interview/memory"
+	OFF
+)
+if(BUILD_INTERVIEW_MEMORY)
+	add_subdirectory(memory)
+endif()
+
 # add_subdirectory(misc)
 # add_subdirectory(pointers)
 # add_subdirectory(polymorphism)
