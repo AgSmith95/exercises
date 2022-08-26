@@ -28,6 +28,8 @@ void writeStringAsm(const char* str, const unsigned len) {
 Parent* constructChild();
 void deleteParent(Parent*);
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdelete-incomplete"
 int main() {
     {
         Parent *p1 = constructChild();
@@ -37,6 +39,7 @@ int main() {
 
     return 0;
 }
+#pragma GCC diagnostic pop
 
 class Parent {
 public:

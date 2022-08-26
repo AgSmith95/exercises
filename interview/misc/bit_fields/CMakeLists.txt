@@ -1,5 +1,5 @@
-set(EXECUTABLE misc_empty_struct)
-set(SOURCE_FILES main.cpp)
+set(EXECUTABLE misc_bit_fields)
+set(SOURCE_FILES char_int_std-string.cpp)
 add_executable(${EXECUTABLE} ${SOURCE_FILES})
 
 set_target_properties(${EXECUTABLE} PROPERTIES
