@@ -88,7 +88,15 @@ if(BUILD_INTERVIEW_MEMORY)
 	add_subdirectory(memory)
 endif()
 
-# add_subdirectory(misc)
+option(
+	BUILD_INTERVIEW_MISC
+	"Build interview/misc"
+	OFF
+)
+if(BUILD_INTERVIEW_MISC)
+	add_subdirectory(misc)
+endif()
+
 # add_subdirectory(pointers)
 # add_subdirectory(polymorphism)
 # add_subdirectory(tasks)
