@@ -1,10 +1,14 @@
-cmake_minimum_required(VERSION 3.10)
-project(class)
-set(CMAKE_CXX_STANDARD 17)
+# cmake_minimum_required(VERSION 3.10)
+# project(class)
 
 set(SOURCE_FILES main.cpp MyClass.cpp MyClass.h)
 set(EXECUTABLE class)
 add_executable(${EXECUTABLE} ${SOURCE_FILES})
+
+set_target_properties(${EXECUTABLE} PROPERTIES
+	CXX_STANDARD 17
+	CXX_STANDARD_REQUIRED ON
+)
 
 if(MSVC)
   target_compile_options(${EXECUTABLE} PRIVATE /W4 /WX)
