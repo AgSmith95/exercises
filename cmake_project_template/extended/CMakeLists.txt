@@ -1,6 +1,6 @@
 # At LEAST 2.8 but newer is better
-cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
-project(myproject VERSION 0.1 LANGUAGES CXX)
+# cmake_minimum_required(VERSION 3.10)
+# project(myproject VERSION 0.1 LANGUAGES CXX)
 
 # Must use GNUInstallDirs to install libraries into correct
 # locations on all platforms.
