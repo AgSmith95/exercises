@@ -1,3 +1,4 @@
 add_subdirectory(arithmetic_return_type)
 add_subdirectory(enum_class)
 add_subdirectory(string_literals)
+add_subdirectory(fold_exprs)
