@@ -54,6 +54,13 @@ bool can_reach_42(vector<int>& v, bool debug = false) {
     return false;
 }
 
+// TASK: check if arithmetic operations on 5 numbers can give 42 as a result
+
+// INPUT: 5 numbers separated with the space
+// EX: 10 20 1 3 7
+// EX output:
+// 		Expr: 3 * 10 - 1 - 7 + 20
+// 		YES
 int main() {
     string line;
     while (getline(cin, line)) {

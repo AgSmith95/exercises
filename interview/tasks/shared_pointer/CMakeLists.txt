@@ -1,10 +1,11 @@
-cmake_minimum_required(VERSION 3.10)
-project(custom_shared_pointer)
-set(CMAKE_CXX_STANDARD 17)
-
 set(SOURCE_FILES shared_pointer.hpp main.cpp)
-set(EXECUTABLE shared_pointer)
+set(EXECUTABLE task_shared_pointer)
 add_executable(${EXECUTABLE} ${SOURCE_FILES})
+
+set_target_properties(${EXECUTABLE} PROPERTIES
+	CXX_STANDARD 17
+	CXX_STANDARD_REQUIRED ON
+)
 
 if(MSVC)
   target_compile_options(${EXECUTABLE} PRIVATE /W4 /WX)
