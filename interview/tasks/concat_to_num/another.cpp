@@ -1,3 +1,22 @@
+/*
+Can you "build" a number from other numbers
+
+If you have all of the numbers - you can build anything
+You can duplicate numbers
+Overlaps/duplications don't matter on both sides
+
+canBeBuilt(1234, {4, 2, 3, 1}) => true
+canBeBuilt(1001, {1, 0}) => true
+canBeBuilt(123, {3, 21}) => true
+canBeBuilt(123, {3, 1}) => false
+
+
+I think this one was my attempt but I haven't fully
+understood the original task
+
+This looks kinda crazy
+*/
+
 #include <iostream>
 #include <vector>
 #include <cassert>
@@ -34,13 +53,6 @@ bool LEGO(unsigned n, const std::vector<unsigned>& v) {
     return (digits_n & digits_v) == digits_n;
 }
 
-/*
-canBeBuilt(1234, {4, 2, 3, 1}) => true
-canBeBuilt(1001, {1, 0}) => true
-canBeBuilt(123, {3, 21}) => true
-canBeBuilt(123, {3, 1}) => false
-*/
-
 int main() {
 
     // testcases given
@@ -65,5 +77,15 @@ int main() {
     assert(!LEGO(213, {1,2}));
 
     assert(LEGO(1234, {2376, 145809, 87976, 214155, 35438390}));
+
+    assert(LEGO(1, {1234567890}));
+    assert(LEGO(12, {1234567890}));
+    assert(LEGO(213, {1234567890}));
+    assert(LEGO(4123, {1234567890}));
+    assert(LEGO(35142, {1234567890}));
+    assert(LEGO(514623, {1234567890}));
+    assert(LEGO(5732461, {1234567890}));
+	
+    assert(LEGO(77777777, {7}));
     return 0;
 }

@@ -1,8 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
-project(virtual)
-set(CMAKE_CXX_STANDARD 17)
-
-set(EXECUTABLE virtual)
+set(EXECUTABLE polymorphism_virtual)
 
 set(
     SOURCE_FILES
@@ -17,3 +13,15 @@ set(
     OverrideFinal.hpp
 )
 add_executable(${EXECUTABLE} ${SOURCE_FILES})
+
+set_target_properties(${EXECUTABLE} PROPERTIES
+	CXX_STANDARD 17
+	CXX_STANDARD_REQUIRED ON
+)
+
+# error handling intentionally turned off
+# if(MSVC)
+# 	target_compile_options(${EXECUTABLE} PRIVATE /W4 /WX)
+# else()
+# 	target_compile_options(${EXECUTABLE} PRIVATE -Wall -Wextra -pedantic -Werror)
+# endif()

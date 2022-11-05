@@ -1,3 +1,6 @@
+// usage: collatz_cached N
+//		N - number up to which you need to check
+
 #include <iostream>
 #include <vector>
 #include <cstdlib>

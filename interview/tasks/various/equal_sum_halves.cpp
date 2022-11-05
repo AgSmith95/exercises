@@ -66,6 +66,6 @@ int main() {
 //    int A[] = {1,2,3,4}; // 1,4,  2,3 -- 5
 //    int A[] = {1, 5, 3, 4, 5, 2}; // 1,4,5,  2,3,5 -- 10
     int arrLength = sizeof(A) / sizeof(*A);
-    cout << ParallelSums(A, arrLength);
+    cout << ParallelSums(A, arrLength) << "\n";
     return 0;
 }

@@ -29,6 +29,14 @@ bool has_solution(It first0, It last0, typename std::iterator_traits<It>::value_
     return false;
 }
 
+// TASK: check if arithmetic operations on the numbers can give 42 as a result
+
+// INPUT: 5 numbers separated with the space
+// EX:
+//		1 2 3
+//		NO
+//		5 6 7 3
+//		YES
 int main() {
     string line;
     while (getline(cin, line)) {
