@@ -1,3 +1,6 @@
+// usage: collatz_readable N
+//		N - number up to which you need to check
+
 #include <iostream>
 #include <cstdlib>
 

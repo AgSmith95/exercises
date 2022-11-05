@@ -1,3 +1,13 @@
+/*
+Given a number X and a collection of smaller numbers V,
+Can you concatenate smaller numbers from V to receive the X?
+
+Duplicates allowed
+
+545, {2,3,4,5} -> YES
+1001, {100,10} -> NO
+*/
+
 #include <iostream>
 #include <vector>
 #include <string>

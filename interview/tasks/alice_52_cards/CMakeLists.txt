@@ -1,11 +1,7 @@
-cmake_minimum_required(VERSION 3.10)
-project(alice_52_cards)
-set(CMAKE_CXX_STANDARD 20)
-
 set(SOURCE_FILES main.cpp)
 set(SOURCE_FILES2 tshev_solution.cpp)
-set(EXECUTABLE alice_52_cards)
-set(EXECUTABLE2 tshev_solution)
+set(EXECUTABLE task_alice_52_cards)
+set(EXECUTABLE2 task_alice_52_cards_tshev)
 add_executable(${EXECUTABLE} ${SOURCE_FILES})
 add_executable(${EXECUTABLE2} ${SOURCE_FILES2})
 
