@@ -106,7 +106,15 @@ if(BUILD_INTERVIEW_POINTERS)
 	add_subdirectory(pointers)
 endif()
 
-# add_subdirectory(pointers)
+option(
+	BUILD_INTERVIEW_POLYMORPHISM
+	"Build interview/polymorphism"
+	OFF
+)
+if(BUILD_INTERVIEW_POLYMORPHISM)
+	add_subdirectory(polymorphism)
+endif()
+
 # add_subdirectory(polymorphism)
 # add_subdirectory(tasks)
 # add_subdirectory(templates)
