@@ -4,7 +4,7 @@
 template <typename... Types>
 int sum_to_int(Types... args)
 {
-	return (int)(args + ...);
+	return (int)(args + ...); // fold expression used here
 }
 
 // I know nothing about other types of paramter packs.
