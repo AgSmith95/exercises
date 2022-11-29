@@ -11,6 +11,15 @@ if(BUILD_ASM)
 endif()
 
 option(
+	BUILD_AADS
+	"Build aads"
+	OFF
+)
+if(BUILD_AADS)
+	add_subdirectory(aads)
+endif()
+
+option(
 	BUILD_INTERVIEW
 	"Build interview"
 	OFF

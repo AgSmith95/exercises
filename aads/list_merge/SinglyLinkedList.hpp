@@ -135,8 +135,7 @@ public:
         }
         // 2) main cycle -
         ListNode *curr = mHead->next;
-        ListNode *prev = mHead,
-                 *tmp  = nullptr;
+        ListNode *prev = mHead;
         while ((curr != nullptr) && (curr_s != nullptr)) {
             if (curr_s->val <= curr->val) {
                 prev->next = new ListNode(curr_s->val, curr);

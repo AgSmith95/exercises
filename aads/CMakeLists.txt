@@ -1,0 +1,7 @@
+add_subdirectory(binary_search_arr)
+add_subdirectory(graham_scan)
+add_subdirectory(hanoi)
+add_subdirectory(list_merge)
+add_subdirectory(next_perm)
+add_subdirectory(partition)
+add_subdirectory(tree_traverse)
