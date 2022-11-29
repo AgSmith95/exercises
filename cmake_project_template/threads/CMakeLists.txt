@@ -2,7 +2,7 @@
 # project(project)
 
 # THREADS
-set(THREADS_PREFER_PTHREAD_FLAG ON)
+set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package(Threads REQUIRED)
 
 set(EXECUTABLE_NAME executable_w_threads)
