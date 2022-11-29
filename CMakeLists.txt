@@ -2,6 +2,15 @@ cmake_minimum_required(VERSION 3.10)
 project(exercises)
 
 option(
+	BUILD_ASM
+	"Build asm"
+	OFF
+)
+if(BUILD_ASM)
+	add_subdirectory(asm)
+endif()
+
+option(
 	BUILD_INTERVIEW
 	"Build interview"
 	OFF
