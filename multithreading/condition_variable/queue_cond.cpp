@@ -43,9 +43,14 @@ void consume(int i=0) {
 }
 
 int main() {
-	thread producer(produce,0);
-	thread consumer(consume,0);
+	std::cout << "Input string which will be splitted to characters and consumed\n";
+	std::cout << "\tPress ctrl+C to exit\n";
 
-	consumer.join();
+	thread producer(produce,0);
+	thread consumer0(consume,0);
+	thread consumer1(consume,1);
+
+	consumer0.join();
+	consumer1.join();
 	producer.join();
 }

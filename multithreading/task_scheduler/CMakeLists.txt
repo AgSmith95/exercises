@@ -1,11 +1,20 @@
-cmake_minimum_required(VERSION 3.10)
-project(task_scheduler)
-set(CMAKE_CXX_STANDARD 17)
-
-set(THREADS_PREFER_PTHREAD_FLAG ON)
+set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package(Threads REQUIRED)
 
-set(EXECUTABLE_NAME task_scheduler)
+set(EXECUTABLE mt_task_scheduler)
 set(SOURCE_FILES main.cpp scheduler.hpp task.hpp)
-add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
-target_link_libraries(${EXECUTABLE_NAME} Threads::Threads)
+add_executable(${EXECUTABLE} ${SOURCE_FILES})
+
+set_target_properties(${EXECUTABLE} PROPERTIES
+	CXX_STANDARD 17
+	CXX_STANDARD_REQUIRED ON
+)
+
+target_link_libraries(${EXECUTABLE} Threads::Threads)
+
+if(MSVC)
+  target_compile_options(${EXECUTABLE} PRIVATE /W4 /WX)
+else()
+  target_compile_options(${EXECUTABLE} PRIVATE -Wall -Wextra -pedantic -Werror)
+endif()
+
