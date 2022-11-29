@@ -119,6 +119,9 @@ void dummy_work() {
 }
 
 int main() {
+	std::cout << "Input number of dummy tasks to spawn\n";
+	std::cout << "\tPress ENTER to quit\n";
+
     task_system ts;
 
     string line;
