@@ -29,7 +29,7 @@ public:
         std::stringstream ss;
         ss << '[';
         print_node(ss, top);
-        std::string s(std::move(ss.str()));
+        std::string s(ss.str());
         s[s.size() - 1] = ']';
         return s;
     }
