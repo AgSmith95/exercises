@@ -1,3 +1,21 @@
+/**
+ * First you start exe built from this file:
+ * 		$ linux_shmem_set_bin
+ * 		//bin means binary, yes it is that simple
+ * 
+ * Then you type strings (not very big one) to write them
+ * 		in shared memory you've just 
+ * 
+ * Then you start your getter:
+ * 		$ linux_shmem_get_bin
+ * 
+ * This will open the same shared memory location and
+ * 		read from it the strings you produced
+ * 
+ * You can type more strings and they will be written by
+ * 		set_bin and read by get_bin
+ */
+
 #include <iostream>
 #include <iomanip>
 #include <sys/mman.h>
