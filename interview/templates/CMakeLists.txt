@@ -1,0 +1,5 @@
+add_subdirectory(basics)
+add_subdirectory(expression_templates)
+add_subdirectory(extended)
+add_subdirectory(recursion)
+add_subdirectory(class_has_member)
