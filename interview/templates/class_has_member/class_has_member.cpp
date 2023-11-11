@@ -31,9 +31,13 @@ struct HasErrData : std::false_type {};
 // Specialization for types that have the specified member variable
 template <typename T>
 struct HasErrData<T, std::void_t<decltype(std::declval<T>().errData)>> : std::true_type {};
-// declval makes it possible to refer to a member of a class without instanciating it
+// declval makes it possible to refer to a PUBLIC member of a class without instanciating the class
+//		in this example: if class T has no member called errData, "std::declval<T>().errData" will fail
+//		and "HasErrData" falls to the first option - "HasErrData : std::false_type {}"
 // decltype returns a type of a given expression
 // void_t maps anything to void
+//		since we have a specialization for HasErrData<T, void>, if declval is successful
+//		the second option will be selected - "HasErrData<T, ...> : std::true_type {};
 
 template<class T, std::enable_if_t<!HasErrData<T>::value, bool> = true>
 void setErrData(T&, const char*) {
