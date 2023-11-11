@@ -86,6 +86,21 @@ option(
 		"Build interview/pointers"
 		OFF
 	)
+	option(
+		BUILD_INTERVIEW_POLYMORPHISM
+		"Build interview/polymorphism"
+		OFF
+	)
+	option(
+		BUILD_INTERVIEW_TASKS
+		"Build interview/tasks"
+		OFF
+	)
+	option(
+		BUILD_INTERVIEW_TEMPLATES
+		"Build interview/templates"
+		OFF
+	)
 	# INTERVIEW categories
 if(BUILD_INTERVIEW)
 	add_subdirectory(interview)

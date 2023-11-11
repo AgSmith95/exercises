@@ -46,29 +46,14 @@ if(BUILD_INTERVIEW_POINTERS)
 	add_subdirectory(pointers)
 endif()
 
-option(
-	BUILD_INTERVIEW_POLYMORPHISM
-	"Build interview/polymorphism"
-	OFF
-)
 if(BUILD_INTERVIEW_POLYMORPHISM)
 	add_subdirectory(polymorphism)
 endif()
 
-option(
-	BUILD_INTERVIEW_TASKS
-	"Build interview/tasks"
-	OFF
-)
 if(BUILD_INTERVIEW_TASKS)
 	add_subdirectory(tasks)
 endif()
 
-option(
-	BUILD_INTERVIEW_TEMPLATES
-	"Build interview/templates"
-	OFF
-)
 if(BUILD_INTERVIEW_TEMPLATES)
 	add_subdirectory(templates)
 endif()
