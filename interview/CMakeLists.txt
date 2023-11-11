@@ -64,5 +64,13 @@ if(BUILD_INTERVIEW_TASKS)
 	add_subdirectory(tasks)
 endif()
 
-# add_subdirectory(templates)
+option(
+	BUILD_INTERVIEW_TEMPLATES
+	"Build interview/templates"
+	OFF
+)
+if(BUILD_INTERVIEW_TEMPLATES)
+	add_subdirectory(templates)
+endif()
+
 # add_subdirectory(values)
