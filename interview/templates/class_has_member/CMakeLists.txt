@@ -3,7 +3,7 @@
 
 # exec1
 set(SOURCE_FILES class_has_member.cpp)
-set(EXECUTABLE class_has_member)
+set(EXECUTABLE tmpl_class_has_member)
 add_executable(${EXECUTABLE} ${SOURCE_FILES})
 
 set_target_properties(${EXECUTABLE} PROPERTIES
@@ -19,7 +19,7 @@ endif()
 
 #exec 2
 set(SOURCE_FILES2 class_has_member_type.cpp)
-set(EXECUTABLE2 class_has_member_type)
+set(EXECUTABLE2 tmpl_class_has_member_type)
 add_executable(${EXECUTABLE2} ${SOURCE_FILES2})
 
 set_target_properties(${EXECUTABLE2} PROPERTIES
@@ -35,7 +35,7 @@ endif()
 
 #exec 3
 set(SOURCE_FILES3 class_has_member_concept.cpp)
-set(EXECUTABLE3 class_has_member_concept)
+set(EXECUTABLE3 tmpl_class_has_member_concept)
 add_executable(${EXECUTABLE3} ${SOURCE_FILES3})
 
 set_target_properties(${EXECUTABLE3} PROPERTIES

@@ -1,6 +1,17 @@
-cmake_minimum_required(VERSION 3.10)
-project(templates_basics)
-set(CMAKE_CXX_STANDARD 17)
+#cmake_minimum_required(VERSION 3.10)
+#project(templates_basics)
 
 set(SOURCE_FILES templates_basics.cpp)
-add_executable(templates_basics ${SOURCE_FILES})
+set(EXECUTABLE tmpl_basics)
+add_executable(${EXECUTABLE} ${SOURCE_FILES})
+
+set_target_properties(${EXECUTABLE} PROPERTIES
+	CXX_STANDARD 17
+	CXX_STANDARD_REQUIRED ON
+)
+
+if(MSVC)
+	target_compile_options(${EXECUTABLE} PRIVATE /W4 /WX)
+else()
+	target_compile_options(${EXECUTABLE} PRIVATE -Wall -Wextra -pedantic -Werror)
+endif()

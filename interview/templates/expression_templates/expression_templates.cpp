@@ -14,7 +14,7 @@ int main() {
             c{10,20,30,40,50};
         Vec x = a + b + c;
         std::cout << "{ ";
-        for (int i = 0; i < x.size(); ++i) {
+        for (size_t i = 0; i < x.size(); ++i) {
             std::cout << x[i] << " ";
         }
         std::cout << "}\n";
