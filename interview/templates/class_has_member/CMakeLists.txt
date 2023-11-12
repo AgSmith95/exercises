@@ -32,3 +32,19 @@ if(MSVC)
 else()
 	target_compile_options(${EXECUTABLE2} PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
+
+#exec 3
+set(SOURCE_FILES3 class_has_member_concept.cpp)
+set(EXECUTABLE3 class_has_member_concept)
+add_executable(${EXECUTABLE3} ${SOURCE_FILES3})
+
+set_target_properties(${EXECUTABLE3} PROPERTIES
+	CXX_STANDARD 20
+	CXX_STANDARD_REQUIRED ON
+)
+
+if(MSVC)
+	target_compile_options(${EXECUTABLE3} PRIVATE /W4 /WX)
+else()
+	target_compile_options(${EXECUTABLE3} PRIVATE -Wall -Wextra -pedantic -Werror)
+endif()
