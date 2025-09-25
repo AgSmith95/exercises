@@ -15,8 +15,8 @@ std::vector<vt<It>> longest_increasing_subsequence(It first, It last, vt<It> pre
     if (first == last) return {};
     else if (prev < *first) {
         vt<It> current = *first;
-        std::vector<vt<It>> included = std::move(longest_increasing_subsequence(std::next(first), last, current));
-        std::vector<vt<It>> excluded = std::move(longest_increasing_subsequence(std::next(first), last, prev));
+        std::vector<vt<It>> included = longest_increasing_subsequence(std::next(first), last, current);
+        std::vector<vt<It>> excluded = longest_increasing_subsequence(std::next(first), last, prev);
         if (1 + included.size() > excluded.size()) {
             included.insert(included.begin(), *first);
             return included;
